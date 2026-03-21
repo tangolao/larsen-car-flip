@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚗 Larsen CarFlip
 
-## Getting Started
+## 📌 Prosjektbeskrivelse
 
-First, run the development server:
+Dette er en fullstack webapplikasjon for kjøp, reparasjon og salg av brukte biler i Norge.
+
+---
+
+## 🛠 Tech Stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Git & GitHub
+
+---
+
+## 🚀 Hvordan kjøre prosjektet
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✅ Fremdrift (Hva er gjort)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🧱 Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [x] Opprettet Next.js prosjekt
+- [x] Satt opp TypeScript og Tailwind
+- [x] Opprettet Git repository
+- [x] Koblet prosjekt til GitHub
+- [x] Strukturert prosjekt (app, components, lib, types)
 
-## Learn More
+### 🗂 Routing
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Implementert route groups `(public)` og `(admin)`
+- [x] Opprettet hovedside `/`
+- [x] Opprettet `/cars` side
+- [x] Opprettet dynamisk route `/cars/[id]`
+- [x] Opprettet `/dashboard` (admin)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚧 Oppgaver som gjenstår
 
-## Deploy on Vercel
+### 🎨 Frontend (UI)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [ ] Lage Navbar (global layout)
+- [ ] Lage Footer
+- [ ] Lage Home page design
+- [ ] Lage Cars list UI (grid)
+- [ ] Lage CarCard component
+- [ ] Lage Car detail page design
+- [ ] Lage responsive design (mobile)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### ⚙️ Backend
+
+- [ ] Sette opp API routes
+- [ ] Lage cars API (CRUD)
+- [ ] Lage auth system (login/admin)
+- [ ] Lage contact/lead system
+- [ ] Input validering
+
+---
+
+### 🗄 Database
+
+- [ ] Designe database (ER diagram)
+- [ ] Opprette PostgreSQL database
+- [ ] Lage tabeller (cars, users, leads)
+- [ ] Koble database til backend
+
+---
+
+### 📸 Images
+
+- [ ] Implementere image upload
+- [ ] Integrere Cloudinary / storage
+- [ ] Koble bilder til biler
+
+---
+
+### 🔐 Admin
+
+- [ ] Lage admin dashboard UI
+- [ ] Lage add/edit car form
+- [ ] Lage delete car funksjon
+- [ ] Endre status (til salgs / solgt)
+
+---
+
+### 🌍 Deployment
+
+- [ ] Deploy til Vercel
+- [ ] Koble database i produksjon
+- [ ] Legge til domain
+
+---
+
+## 💼 For portfolio
+
+Dette prosjektet viser:
+
+- Fullstack utvikling (Next.js)
+- Routing og struktur
+- API design
+- Database design
+- Autentisering og sikkerhet
+- Skalerbar og produksjonsklar webapplikasjon (under utvikling)
+
+## 🚀 Status
+
+Dette prosjektet er under utvikling og er per nå på portfolio-nivå.  
+Målet er å videreutvikle det til en produksjonsklar applikasjon.
+
+---
+
+## 🔮 Videre arbeid (Production Ready)
+
+### 🔐 Autentisering
+
+- [ ] Login system
+- [ ] Beskyttede admin-ruter
+
+### 🗄 Database og backend
+
+- [ ] Integrere PostgreSQL
+- [ ] Lage full CRUD API for biler
+- [ ] Lagre data i database
+
+### 📸 Bilder
+
+- [ ] Implementere bildeopplasting
+- [ ] Koble til Cloudinary / storage
+
+### 🌍 Deployment
+
+- [ ] Deploy til Vercel
+- [ ] Koble til database i produksjon
+- [ ] Legge til eget domene
+
+### ⚠️ Kvalitet og sikkerhet
+
+- [ ] Input-validering
+- [ ] Error handling
+- [ ] Basic sikkerhet (XSS, osv.)
