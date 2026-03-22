@@ -46,11 +46,11 @@ npm run dev
 
 ### 🎨 Frontend (UI)
 
-- [ ] Lage Navbar (global layout)
+- [x] Lage Navbar (global layout)
 - [ ] Lage Footer
 - [ ] Lage Home page design
-- [ ] Lage Cars list UI (grid)
-- [ ] Lage CarCard component
+- [x] Lage Cars list UI (grid)
+- [x] Lage CarCard component
 - [ ] Lage Car detail page design
 - [ ] Lage responsive design (mobile)
 
