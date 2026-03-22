@@ -9,8 +9,10 @@ export const cars: Car[] = [
     mileage: 100000,
     fuel: "Elektrisk",
     transmission: "Automat",
-    imageUrl:
+    imageUrl: [
       "https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=1200&auto=format&fit=crop",
+    ],
   },
   {
     id: "2",
@@ -20,8 +22,11 @@ export const cars: Car[] = [
     mileage: 128000,
     fuel: "Diesel",
     transmission: "Automat",
-    imageUrl:
+    imageUrl: [
       "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200&auto=format&fit=crop",
+    ],
   },
   {
     id: "3",
@@ -31,8 +36,11 @@ export const cars: Car[] = [
     mileage: 116000,
     fuel: "Diesel",
     transmission: "Automat",
-    imageUrl:
+    imageUrl: [
       "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop",
+    ],
   },
   {
     id: "4",
@@ -42,7 +50,9 @@ export const cars: Car[] = [
     mileage: 98000,
     fuel: "Bensin",
     transmission: "Manuell",
-    imageUrl:
+    imageUrl: [
       "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200&auto=format&fit=crop",
+    ],
   },
 ];

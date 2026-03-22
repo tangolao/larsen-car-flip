@@ -21,7 +21,7 @@ export default async function CarDetailPage({ params }: Props) {
 
       <div className="overflow-hidden rounded-2xl">
         <img
-          src={car.imageUrl}
+          src={car.imageUrl[0]}
           alt={car.title}
           className="h-[400px] w-full object-cover"
         />
