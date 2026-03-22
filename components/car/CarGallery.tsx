@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type CarGalleryProps = {
   images: string[];
@@ -10,14 +10,58 @@ type CarGalleryProps = {
 export function CarGallery({ images, title }: CarGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0);
 
+  function goToPrevious() {
+    setSelectedImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }
+
+  function goToNext() {
+    setSelectedImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "ArrowLeft") {
+        goToPrevious();
+      }
+
+      if (event.key === "ArrowRight") {
+        goToNext();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [images.length]);
+
   return (
     <div>
-      <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+      <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm">
         <img
           src={images[selectedImage]}
-          alt={title}
+          alt={`${title} ${selectedImage + 1}`}
           className="h-[420px] w-full object-cover"
         />
+
+        <button
+          type="button"
+          onClick={goToPrevious}
+          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white"
+          aria-label="Forrige bilde"
+        >
+          ‹
+        </button>
+
+        <button
+          type="button"
+          onClick={goToNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white"
+          aria-label="Neste bilde"
+        >
+          ›
+        </button>
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-3">
