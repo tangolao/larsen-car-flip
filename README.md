@@ -53,6 +53,7 @@ npm run dev
 - [x] Lage CarCard component
 - [ ] Lage Car detail page design
 - [ ] Lage responsive design (mobile)
+- [x] Lage bildegalleri på detail page
 
 ---
 
