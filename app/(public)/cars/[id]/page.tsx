@@ -72,7 +72,7 @@ export default async function CarDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              <button className="mt-8 w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800">
+              <button className="mt-8 w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 cursor-pointer">
                 Kontakt selger
               </button>
             </div>
