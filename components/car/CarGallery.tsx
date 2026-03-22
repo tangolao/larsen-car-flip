@@ -48,7 +48,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
         <button
           type="button"
           onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white"
+          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white cursor-pointer"
           aria-label="Forrige bilde"
         >
           ‹
@@ -57,7 +57,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
         <button
           type="button"
           onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white"
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white cursor-pointer"
           aria-label="Neste bilde"
         >
           ›
@@ -70,7 +70,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
             key={index}
             type="button"
             onClick={() => setSelectedImage(index)}
-            className={`overflow-hidden rounded-xl border ${
+            className={` overflow-hidden rounded-xl border  ${
               selectedImage === index ? "border-gray-900" : "border-gray-200"
             }`}
           >
