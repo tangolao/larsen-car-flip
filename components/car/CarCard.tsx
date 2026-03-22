@@ -13,7 +13,7 @@ export function CarCard({ car }: CarCardProps) {
     >
       <div className="aspect-[16/10] w-full overflow-hidden bg-gray-100">
         <img
-          src={car.imageUrl[0]}
+          src={car.images[0]}
           alt={car.title}
           className="h-full w-full object-cover"
         />

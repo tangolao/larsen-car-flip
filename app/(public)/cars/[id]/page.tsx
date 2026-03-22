@@ -1,9 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { cars } from "@/lib/data/cars";
 import { Navbar } from "@/components/layout/Navbar";
+import { CarGallery } from "@/components/car/CarGallery";
 
 type Props = {
   params: Promise<{
@@ -11,19 +9,13 @@ type Props = {
   }>;
 };
 
-export default async function CarDetailPageWrapper({ params }: Props) {
+export default async function CarDetailPage({ params }: Props) {
   const { id } = await params;
   const car = cars.find((c) => c.id === id);
 
   if (!car) {
     return <div className="p-10">Car not found</div>;
   }
-
-  return <CarDetailPage car={car} />;
-}
-
-function CarDetailPage({ car }: { car: (typeof cars)[number] }) {
-  const [selectedImage, setSelectedImage] = useState(0);
 
   return (
     <>
@@ -39,36 +31,7 @@ function CarDetailPage({ car }: { car: (typeof cars)[number] }) {
           </Link>
 
           <div className="grid gap-10 lg:grid-cols-2">
-            <div>
-              <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-                <img
-                  src={car.images[selectedImage]}
-                  alt={car.title}
-                  className="h-[420px] w-full object-cover"
-                />
-              </div>
-
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                {car.images.map((image, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setSelectedImage(index)}
-                    className={`overflow-hidden rounded-xl border ${
-                      selectedImage === index
-                        ? "border-gray-900"
-                        : "border-gray-200"
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${car.title} ${index + 1}`}
-                      className="h-24 w-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
+            <CarGallery images={car.images} title={car.title} />
 
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
