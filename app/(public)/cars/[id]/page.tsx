@@ -1,43 +1,39 @@
-import Link from "next/link";
-import { Navbar } from "@/components/layout/Navbar";
+import { cars } from "@/lib/data/cars";
 
-export default function HomePage() {
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export default async function CarDetailPage({ params }: Props) {
+  const { id } = await params;
+
+  const car = cars.find((c) => c.id === id);
+
+  if (!car) {
+    return <div className="p-10">Car not found</div>;
+  }
+
   return (
-    <>
-      <Navbar />
+    <main className="mx-auto max-w-5xl p-6">
+      <h1 className="mb-6 text-3xl font-bold">{car.title}</h1>
 
-      <main className="min-h-screen bg-gray-50">
-        <section className="mx-auto flex max-w-6xl flex-col items-center px-6 py-24 text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
-            Larsen CarFlip
-          </p>
+      <div className="overflow-hidden rounded-2xl">
+        <img
+          src={car.imageUrl}
+          alt={car.title}
+          className="h-[400px] w-full object-cover"
+        />
+      </div>
 
-          <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Kvalitetssikrede bruktbiler i Norge
-          </h1>
-
-          <p className="mt-6 max-w-2xl text-lg text-gray-600">
-            Vi kjøper, reparerer og selger brukte biler med fokus på kvalitet,
-            trygghet og enkel handel.
-          </p>
-
-          <div className="mt-8 flex gap-4">
-            <Link
-              href="/cars"
-              className="rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800"
-            >
-              Se biler
-            </Link>
-
-            <Link
-              href="/dashboard"
-              className="rounded-xl border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-100"
-            >
-              Admin
-            </Link>
-          </div>
-        </section>
-      </main>
-    </>
+      <div className="mt-6 space-y-2 text-lg">
+        <p>Pris: {car.price.toLocaleString("no-NO")} kr</p>
+        <p>År: {car.year}</p>
+        <p>Kilometer: {car.mileage.toLocaleString("no-NO")} km</p>
+        <p>Drivstoff: {car.fuel}</p>
+        <p>Girkasse: {car.transmission}</p>
+      </div>
+    </main>
   );
 }
