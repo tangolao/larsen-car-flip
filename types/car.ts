@@ -6,5 +6,5 @@ export type Car = {
   mileage: number;
   fuel: string;
   transmission: string;
-  imageUrl: string;
+  imageUrl: string[];
 };
