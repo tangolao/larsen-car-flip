@@ -84,7 +84,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
             id="message"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
-            className="min-h-[120px] w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
+            className="min-h-[120px] w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             placeholder="Skriv meldingen din"
             required
           />

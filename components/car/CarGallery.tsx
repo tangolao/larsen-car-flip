@@ -29,6 +29,16 @@ export function CarGallery({ images, title }: CarGalleryProps) {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
+      const target = event.target as HTMLElement | null;
+      const isTyping =
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target?.isContentEditable;
+
+      if (isTyping) {
+        return;
+      }
+
       if (event.key === "ArrowLeft") {
         goToPrevious();
       }
