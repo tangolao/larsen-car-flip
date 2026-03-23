@@ -114,7 +114,10 @@ export function CarGallery({ images, title }: CarGalleryProps) {
       </div>
 
       {isFullscreenOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6"
+          onClick={closeFullscreen}
+        >
           <button
             type="button"
             onClick={closeFullscreen}
@@ -133,7 +136,10 @@ export function CarGallery({ images, title }: CarGalleryProps) {
             ‹
           </button>
 
-          <div className="flex max-h-full w-full max-w-6xl flex-col items-center ">
+          <div
+            className="flex max-h-full w-full max-w-6xl flex-col items-center "
+            onClick={(e) => e.stopPropagation()}
+          >
             <img
               src={images[selectedImage]}
               alt={`${title} ${selectedImage + 1}`}
