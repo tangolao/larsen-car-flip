@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cars } from "@/lib/data/cars";
 import { Navbar } from "@/components/layout/Navbar";
 import { CarGallery } from "@/components/car/CarGallery";
+import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 
 type Props = {
   params: Promise<{
@@ -71,10 +72,7 @@ export default async function CarDetailPage({ params }: Props) {
                   </p>
                 </div>
               </div>
-
-              <button className="mt-8 w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 cursor-pointer">
-                Kontakt selger
-              </button>
+              <ContactSellerForm carTitle={car.title} />
             </div>
           </div>
         </section>

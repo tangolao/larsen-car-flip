@@ -51,7 +51,7 @@ npm run dev
 - [ ] Lage Home page design
 - [x] Lage Cars list UI (grid)
 - [x] Lage CarCard component
-- [ ] Lage Car detail page design
+- [x] Lage Car detail page design
 - [ ] Lage responsive design (mobile)
 - [x] Lage bildegalleri på detail page
 
