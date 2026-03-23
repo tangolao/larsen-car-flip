@@ -45,10 +45,14 @@ export function CarGallery({ images, title }: CarGalleryProps) {
           className="h-[420px] w-full object-cover"
         />
 
+        <div className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1 text-sm font-medium text-white">
+          {selectedImage + 1} / {images.length}
+        </div>
+
         <button
           type="button"
           onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white cursor-pointer"
+          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-xl font-bold text-gray-900 shadow transition hover:bg-white cursor-pointer"
           aria-label="Forrige bilde"
         >
           ‹
@@ -57,7 +61,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
         <button
           type="button"
           onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-lg font-bold text-gray-900 shadow hover:bg-white cursor-pointer"
+          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 px-4 py-2 text-xl font-bold text-gray-900 shadow transition hover:bg-white cursor-pointer"
           aria-label="Neste bilde"
         >
           ›
@@ -70,8 +74,10 @@ export function CarGallery({ images, title }: CarGalleryProps) {
             key={index}
             type="button"
             onClick={() => setSelectedImage(index)}
-            className={` overflow-hidden rounded-xl border  ${
-              selectedImage === index ? "border-gray-900" : "border-gray-200"
+            className={`overflow-hidden rounded-xl border-2 transition ${
+              selectedImage === index
+                ? "border-gray-900"
+                : "border-transparent hover:border-gray-300"
             }`}
           >
             <img
