@@ -49,7 +49,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none text-gray-900 focus:border-gray-900"
             placeholder="Skriv navnet ditt"
             required
           />
@@ -67,7 +67,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-gray-900"
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none text-gray-900 focus:border-gray-900"
             placeholder="navn@epost.no"
             required
           />
@@ -92,7 +92,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
 
         <button
           type="submit"
-          className="w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800"
+          className="w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 cursor-pointer"
         >
           Send melding
         </button>
