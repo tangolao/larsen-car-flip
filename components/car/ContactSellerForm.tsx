@@ -14,13 +14,32 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    setIsSubmitted(true);
-    setName("");
-    setEmail("");
-    setMessage(`Hei, jeg er interessert i ${carTitle}.`);
+    try {
+      const response = await fetch("/lib/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          carTitle,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+      setIsSubmitted(true);
+      setName("");
+      setEmail("");
+      setMessage(`Hei, jeg er interessert i ${carTitle}.`);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
