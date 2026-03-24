@@ -13,9 +13,15 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
     `Hei, jeg er interessert i ${carTitle}.`,
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    setIsLoading(true);
+    setErrorMessage("");
+    setIsSubmitted(false);
 
     try {
       const response = await fetch("/api/contact", {
@@ -30,15 +36,20 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
           carTitle,
         }),
       });
+
       if (!response.ok) {
         throw new Error("Failed to send message");
       }
+
       setIsSubmitted(true);
       setName("");
       setEmail("");
       setMessage(`Hei, jeg er interessert i ${carTitle}.`);
     } catch (error) {
       console.error(error);
+      setErrorMessage("Noe gikk galt. Prøv igjen.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -52,6 +63,11 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
       {isSubmitted && (
         <div className="mt-4 rounded-xl bg-green-50 px-4 py-3 text-sm text-green-700">
           Meldingen ble sendt.
+        </div>
+      )}
+      {errorMessage && (
+        <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+          {errorMessage}
         </div>
       )}
 
@@ -113,7 +129,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
           type="submit"
           className="w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 cursor-pointer"
         >
-          Send melding
+          {isLoading ? "Sender..." : "Send melding"}
         </button>
       </form>
     </div>
