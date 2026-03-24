@@ -18,7 +18,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
     event.preventDefault();
 
     try {
-      const response = await fetch("/lib/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
