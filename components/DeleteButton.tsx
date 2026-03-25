@@ -33,7 +33,7 @@ export function DeleteButton({ id }: { id: number }) {
     <button
       onClick={handleDelete}
       disabled={loading}
-      className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-100 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+      className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-100 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
     >
       <Trash2 size={16} />
       {loading ? "Sletter..." : "Slett"}

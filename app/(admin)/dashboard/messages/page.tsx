@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import { DeleteButton } from "@/components/DeleteButton";
 import { DateText } from "@/components/DateText";
-
+import Link from "next/link";
 export default async function MessagesPage() {
   const messages = await prisma.contactMessage.findMany({
     orderBy: {
@@ -24,6 +24,13 @@ export default async function MessagesPage() {
         <p className="mt-3 text-gray-600">
           Oversikt over meldinger sendt fra kontaktskjemaet.
         </p>
+
+        <Link
+          href="/dashboard"
+          className="mt-4 inline-block text-sm font-medium text-blue-600 hover:text-blue-700"
+        >
+          ← Tilbake til dashboard
+        </Link>
 
         <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
           {messages.length === 0 ? (
