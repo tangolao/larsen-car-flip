@@ -9,13 +9,26 @@ export default async function DashboardPage() {
   return (
     <main className="min-h-screen bg-gray-50 p-10">
       <div className="mx-auto max-w-6xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
-          Admin
-        </p>
+        <div className="mb-6 flex items-start justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
+              Admin
+            </p>
 
-        <h1 className="mt-2 text-3xl font-bold text-gray-900">
-          Admin Dashboard
-        </h1>
+            <h1 className="mt-2 text-3xl font-bold text-gray-900">
+              Admin Dashboard
+            </h1>
+          </div>
+
+          <form action="/api/logout" method="POST">
+            <button
+              type="submit"
+              className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 cursor-pointer"
+            >
+              Logg ut
+            </button>
+          </form>
+        </div>
 
         <p className="mt-3 text-gray-600">
           Oversikt over administrasjonssider.
