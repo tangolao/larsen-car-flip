@@ -10,13 +10,11 @@ export async function POST(request: Request) {
 
     cookieStore.set("admin-auth", "true", {
       httpOnly: true,
-      secure: false,
       path: "/",
-      maxAge: 60 * 60 * 24,
     });
 
     redirect("/dashboard");
   }
 
-  redirect("/login");
+  redirect("/login?error=1");
 }

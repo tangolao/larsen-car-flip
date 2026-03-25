@@ -61,7 +61,7 @@ npm run dev
 
 - [x] Sette opp API routes
 - [ ] Lage cars API (CRUD)
-- [ ] Lage auth system (login/admin)
+- [x] Lage auth system (login/admin)
 - [x] Lage contact/lead system
 - [ ] Input validering
 
@@ -91,7 +91,7 @@ npm run dev
 - [x] Lage meldingsoversikt for kundehenvendelser
 - [x] Lage delete funksjon for meldinger
 - [ ] Lage add/edit car form
-- [ ] Lage delete car funksjon
+- [x] Lage delete car funksjon
 - [ ] Endre status (til salgs / solgt)
 
 ---
@@ -126,8 +126,9 @@ Målet er å videreutvikle det til en produksjonsklar applikasjon.
 
 ### 🔐 Autentisering
 
-- [ ] Login system
-- [ ] Beskyttede admin-ruter
+- [x] Login system
+- [x] Beskyttede admin-ruter
+- [x] Logout system
 
 ### 🗄 Database og backend
 
