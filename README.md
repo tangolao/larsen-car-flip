@@ -59,10 +59,10 @@ npm run dev
 
 ### ⚙️ Backend
 
-- [ ] Sette opp API routes
+- [x] Sette opp API routes
 - [ ] Lage cars API (CRUD)
 - [ ] Lage auth system (login/admin)
-- [ ] Lage contact/lead system
+- [x] Lage contact/lead system
 - [ ] Input validering
 
 ---
@@ -70,9 +70,10 @@ npm run dev
 ### 🗄 Database
 
 - [ ] Designe database (ER diagram)
-- [ ] Opprette PostgreSQL database
-- [ ] Lage tabeller (cars, users, leads)
-- [ ] Koble database til backend
+- [x] Opprette PostgreSQL database
+- [x] Lage tabeller (cars, users, leads)
+- [x] Koble database til backend
+- [ ] Migrere til PostgreSQL
 
 ---
 
@@ -86,7 +87,9 @@ npm run dev
 
 ### 🔐 Admin
 
-- [ ] Lage admin dashboard UI
+- [x] Lage admin dashboard UI
+- [x] Lage meldingsoversikt for kundehenvendelser
+- [x] Lage delete funksjon for meldinger
 - [ ] Lage add/edit car form
 - [ ] Lage delete car funksjon
 - [ ] Endre status (til salgs / solgt)
