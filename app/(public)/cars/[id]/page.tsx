@@ -72,6 +72,7 @@ export default async function CarDetailPage({ params }: Props) {
                   </p>
                 </div>
               </div>
+
               <ContactSellerForm carTitle={car.title} />
             </div>
           </div>

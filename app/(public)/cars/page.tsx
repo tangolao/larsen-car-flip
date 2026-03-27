@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { CarCard } from "@/components/car/CarCard";
 import { cars } from "@/lib/data/cars";
+import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 
 export default function CarsPage() {
   return (
