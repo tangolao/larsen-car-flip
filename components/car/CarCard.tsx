@@ -9,6 +9,7 @@ type CarCardProps = {
     mileage: number;
     fuel: string;
     transmission: string;
+    imageUrl: string | null;
   };
 };
 
@@ -18,8 +19,17 @@ export function CarCard({ car }: CarCardProps) {
       href={`/cars/${car.id}`}
       className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md"
     >
-      <div className="aspect-[4/3] rounded-xl bg-gray-200" />
+      {car.imageUrl ? (
+        <img
+          src={car.imageUrl}
+          alt={car.title}
+          className="aspect-[4/3] w-full rounded-xl object-cover"
+        />
+      ) : (
+        <div className="aspect-[4/3] rounded-xl bg-gray-200" />
+      )}
 
+      {/* ข้อมูล */}
       <div className="mt-4">
         <h2 className="text-lg font-bold text-gray-900">{car.title}</h2>
 

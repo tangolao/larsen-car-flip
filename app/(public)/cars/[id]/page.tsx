@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { cars } from "@/lib/data/cars";
 import { Navbar } from "@/components/layout/Navbar";
-import { CarGallery } from "@/components/car/CarGallery";
 import { ContactSellerForm } from "@/components/car/ContactSellerForm";
+import { prisma } from "@/lib/prisma";
 
 type Props = {
   params: Promise<{
@@ -12,7 +11,12 @@ type Props = {
 
 export default async function CarDetailPage({ params }: Props) {
   const { id } = await params;
-  const car = cars.find((c) => c.id === id);
+
+  const car = await prisma.car.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
 
   if (!car) {
     return <div className="p-10">Car not found</div>;
@@ -32,7 +36,17 @@ export default async function CarDetailPage({ params }: Props) {
           </Link>
 
           <div className="grid gap-10 lg:grid-cols-2">
-            <CarGallery images={car.images} title={car.title} />
+            <div>
+              {car.imageUrl ? (
+                <img
+                  src={car.imageUrl}
+                  alt={car.title}
+                  className="aspect-[4/3] w-full rounded-2xl object-cover bg-gray-200"
+                />
+              ) : (
+                <div className="aspect-[4/3] w-full rounded-2xl bg-gray-200" />
+              )}
+            </div>
 
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
@@ -46,6 +60,10 @@ export default async function CarDetailPage({ params }: Props) {
               <p className="mt-4 text-3xl font-bold text-gray-900">
                 {car.price.toLocaleString("no-NO")} kr
               </p>
+
+              {car.description && (
+                <p className="mt-4 text-gray-600">{car.description}</p>
+              )}
 
               <div className="mt-8 grid grid-cols-2 gap-4 rounded-2xl bg-white p-6 shadow-sm">
                 <div>
