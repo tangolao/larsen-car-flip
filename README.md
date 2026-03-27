@@ -26,11 +26,24 @@ npm run dev
 
 ### 🧱 Setup
 
-- [x] Opprettet Next.js prosjekt
-- [x] Satt opp TypeScript og Tailwind
-- [x] Opprettet Git repository
-- [x] Koblet prosjekt til GitHub
-- [x] Strukturert prosjekt (app, components, lib, types)
+- [x] Setup Next.js prosjekt
+- [x] Routing med App Router
+- [x] Opprettet /cars side
+- [x] Hentet data fra Prisma (database)
+- [x] Vist liste med biler (CarCard)
+- [x] Klikkbar bil → går til detail page
+- [x] Dynamic route /cars/[id]
+- [x] Viser bilde fra public
+- [x] Viser pris, år, km, drivstoff, girkasse
+- [x] Viser description på detail page
+- [x] Kontakt skjema (ContactSellerForm)
+
+## 🚧 Oppgaver som gjenstår
+
+- [ ] Bedre styling (hover / animation)
+- [ ] Validering av skjema
+- [ ] Lagre kontaktmelding i database
+- [ ] Admin side (legg til / edit bil)
 
 ### 🗂 Routing
 
@@ -42,8 +55,6 @@ npm run dev
 
 ---
 
-## 🚧 Oppgaver som gjenstår
-
 ### 🎨 Frontend (UI)
 
 - [x] Lage Navbar (global layout)
@@ -53,7 +64,8 @@ npm run dev
 - [x] Lage CarCard component
 - [x] Lage Car detail page design
 - [ ] Lage responsive design (mobile)
-- [x] Lage bildegalleri på detail page
+- [x] Vise bilde på detail page
+- [ ] Lage bildegalleri (carousel)
 
 ---
 
@@ -70,10 +82,10 @@ npm run dev
 ### 🗄 Database
 
 - [ ] Designe database (ER diagram)
-- [x] Opprette PostgreSQL database
+- [x] Opprette database (Prisma + SQLite/Postgres)
 - [x] Lage tabeller (cars, users, leads)
 - [x] Koble database til backend
-- [ ] Migrere til PostgreSQL
+- [ ] Migrere fullt til PostgreSQL (production)
 
 ---
 
@@ -113,7 +125,7 @@ Dette prosjektet viser:
 - API design
 - Database design
 - Autentisering og sikkerhet
-- Skalerbar og produksjonsklar webapplikasjon (under utvikling)
+- Skalerbar webapplikasjon med fokus på videre utvikling mot produksjon
 
 ## 🚀 Status
 
