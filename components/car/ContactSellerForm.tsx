@@ -54,7 +54,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
   }
 
   return (
-    <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
+    <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
       <h2 className="text-xl font-bold text-gray-900">Kontakt selger</h2>
       <p className="mt-2 text-sm text-gray-600">
         Send en henvendelse om denne bilen.
@@ -127,6 +127,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
 
         <button
           type="submit"
+          disabled={isLoading}
           className="w-full rounded-xl bg-gray-900 px-6 py-4 text-sm font-semibold text-white hover:bg-gray-800 cursor-pointer"
         >
           {isLoading ? "Sender..." : "Send melding"}
