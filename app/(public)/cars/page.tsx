@@ -1,9 +1,14 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { CarCard } from "@/components/car/CarCard";
-import { cars } from "@/lib/data/cars";
-import { ContactSellerForm } from "@/components/car/ContactSellerForm";
+import { prisma } from "@/lib/prisma";
 
-export default function CarsPage() {
+export default async function CarsPage() {
+  const cars = await prisma.car.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return (
     <>
       <Navbar />

@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,4 +14,17 @@ model ContactMessage {
   message   String
   carTitle  String
   createdAt DateTime @default(now())
+}
+
+model Car {
+  id           Int      @id @default(autoincrement())
+  title        String
+  price        Int
+  year         Int
+  mileage      Int
+  fuel         String
+  transmission String
+  description  String?
+  imageUrl     String?
+  createdAt    DateTime @default(now())
 }

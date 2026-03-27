@@ -1,41 +1,37 @@
 import Link from "next/link";
-import { Car } from "@/types/car";
 
 type CarCardProps = {
-  car: Car;
+  car: {
+    id: number;
+    title: string;
+    price: number;
+    year: number;
+    mileage: number;
+    fuel: string;
+    transmission: string;
+  };
 };
 
 export function CarCard({ car }: CarCardProps) {
   return (
     <Link
       href={`/cars/${car.id}`}
-      className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+      className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md"
     >
-      <div className="aspect-[16/10] w-full overflow-hidden bg-gray-100">
-        <img
-          src={car.images[0]}
-          alt={car.title}
-          className="h-full w-full object-cover"
-        />
-      </div>
+      <div className="aspect-[4/3] rounded-xl bg-gray-200" />
 
-      <div className="p-5">
-        <div className="flex items-start justify-between gap-4">
-          <h2 className="text-lg font-semibold text-gray-900">{car.title}</h2>
-          <p className="whitespace-nowrap text-lg font-bold text-gray-900">
-            {car.price.toLocaleString("no-NO")} kr
-          </p>
-        </div>
+      <div className="mt-4">
+        <h2 className="text-lg font-bold text-gray-900">{car.title}</h2>
 
-        <div className="mt-4 flex flex-wrap gap-2 text-sm text-gray-600">
-          <span className="rounded-full bg-gray-100 px-3 py-1">{car.year}</span>
-          <span className="rounded-full bg-gray-100 px-3 py-1">
-            {car.mileage.toLocaleString("no-NO")} km
-          </span>
-          <span className="rounded-full bg-gray-100 px-3 py-1">{car.fuel}</span>
-          <span className="rounded-full bg-gray-100 px-3 py-1">
-            {car.transmission}
-          </span>
+        <p className="mt-2 text-2xl font-bold text-gray-900">
+          {car.price.toLocaleString("no-NO")} kr
+        </p>
+
+        <div className="mt-4 grid grid-cols-2 gap-2 text-sm text-gray-600">
+          <p>{car.year}</p>
+          <p>{car.mileage.toLocaleString("no-NO")} km</p>
+          <p>{car.fuel}</p>
+          <p>{car.transmission}</p>
         </div>
       </div>
     </Link>
