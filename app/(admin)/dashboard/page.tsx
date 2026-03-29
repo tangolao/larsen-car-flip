@@ -47,6 +47,18 @@ export default async function DashboardPage() {
               Se kundehenvendelser fra kontaktskjemaet
             </p>
           </Link>
+          <Link
+            href="/dashboard/cars/new"
+            className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md"
+          >
+            <p className="text-sm font-medium text-gray-500">Biler</p>
+            <h2 className="mt-2 text-2xl font-bold text-gray-900">
+              Legg til bil
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Opprett en ny bilannonse i systemet
+            </p>
+          </Link>
         </div>
       </div>
     </main>
