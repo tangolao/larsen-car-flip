@@ -102,7 +102,8 @@ npm run dev
 - [x] Lage admin dashboard UI
 - [x] Lage meldingsoversikt for kundehenvendelser
 - [x] Lage delete funksjon for meldinger
-- [ ] Lage add/edit car form
+- [x] Lage add car from
+- [ ] Lage edit car form
 - [x] Lage delete car funksjon
 - [ ] Endre status (til salgs / solgt)
 
