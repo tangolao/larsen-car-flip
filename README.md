@@ -165,6 +165,7 @@ Målet er å videreutvikle det til en produksjonsklar applikasjon.
 
 ### ⚠️ Kvalitet og sikkerhet
 
-- [ ] Input-validering
-- [ ] Error handling
+- [x] Input-validering (server-side)
+- [x] Dynamic year validation
+- [x] Error handling (basic UI)
 - [ ] Basic sikkerhet (XSS, osv.)

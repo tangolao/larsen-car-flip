@@ -75,6 +75,14 @@ export default async function AdminCarsPage() {
                     >
                       Se
                     </Link>
+
+                    <Link
+                      href={`/dashboard/cars/${car.id}/edit`}
+                      className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100"
+                    >
+                      Rediger
+                    </Link>
+
                     <DeleteCarButton id={car.id} />
                   </div>
                 </div>
