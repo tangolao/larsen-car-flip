@@ -1,15 +1,13 @@
 import { prisma } from "@/lib/prisma";
-import { validateCarForm } from "@/lib/validators/car";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 type Props = {
-  searchParams: Promise<{
-    error?: string;
+  params: Promise<{
+    id: string;
   }>;
 };
 
-async function createCar(formData: FormData) {
+async function updateCar(id: number, formData: FormData) {
   "use server";
 
   const title = formData.get("title") as string;
@@ -21,39 +19,37 @@ async function createCar(formData: FormData) {
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
 
-  const values = {
-    title,
-    price,
-    year,
-    mileage,
-    fuel,
-    transmission,
-    description: description || null,
-    imageUrl: imageUrl || null,
-  };
-
-  const errors = validateCarForm(values);
-
-  if (errors.length > 0) {
-    redirect(
-      `/dashboard/cars/new?error=${encodeURIComponent(errors.join(" "))}`,
-    );
-  }
-
-  await prisma.car.create({
-    data: values,
+  await prisma.car.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      price,
+      year,
+      mileage,
+      fuel,
+      transmission,
+      description: description || null,
+      imageUrl: imageUrl || null,
+    },
   });
-
-  revalidatePath("/cars");
-  revalidatePath("/dashboard");
-  revalidatePath("/dashboard/cars");
 
   redirect("/dashboard/cars");
 }
 
-export default async function NewCarPage({ searchParams }: Props) {
-  const params = await searchParams;
-  const error = params.error;
+export default async function EditCarPage({ params }: Props) {
+  const { id } = await params;
+
+  const car = await prisma.car.findUnique({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  if (!car) {
+    return <div className="p-10">Bil ikke funnet.</div>;
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 p-10">
@@ -62,18 +58,12 @@ export default async function NewCarPage({ searchParams }: Props) {
           Admin
         </p>
 
-        <h1 className="mt-2 text-3xl font-bold text-gray-900">Legg til bil</h1>
+        <h1 className="mt-2 text-3xl font-bold text-gray-900">Rediger bil</h1>
 
-        <p className="mt-3 text-gray-600">Opprett en ny bilannonse.</p>
-
-        {error && (
-          <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
+        <p className="mt-3 text-gray-600">Oppdater informasjon om bilen.</p>
 
         <form
-          action={createCar}
+          action={updateCar.bind(null, car.id)}
           className="mt-8 space-y-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200"
         >
           <div>
@@ -83,9 +73,9 @@ export default async function NewCarPage({ searchParams }: Props) {
             <input
               name="title"
               type="text"
+              defaultValue={car.title}
               required
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-              placeholder="F.eks. BMW 320d xDrive"
             />
           </div>
 
@@ -97,9 +87,9 @@ export default async function NewCarPage({ searchParams }: Props) {
               <input
                 name="price"
                 type="number"
+                defaultValue={car.price}
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-                placeholder="350000"
               />
             </div>
 
@@ -110,9 +100,9 @@ export default async function NewCarPage({ searchParams }: Props) {
               <input
                 name="year"
                 type="number"
+                defaultValue={car.year}
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-                placeholder="2020"
               />
             </div>
           </div>
@@ -125,9 +115,9 @@ export default async function NewCarPage({ searchParams }: Props) {
               <input
                 name="mileage"
                 type="number"
+                defaultValue={car.mileage}
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-                placeholder="45000"
               />
             </div>
 
@@ -138,9 +128,9 @@ export default async function NewCarPage({ searchParams }: Props) {
               <input
                 name="fuel"
                 type="text"
+                defaultValue={car.fuel}
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-                placeholder="Diesel"
               />
             </div>
           </div>
@@ -152,9 +142,9 @@ export default async function NewCarPage({ searchParams }: Props) {
             <input
               name="transmission"
               type="text"
+              defaultValue={car.transmission}
               required
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-              placeholder="Automatic"
             />
           </div>
 
@@ -164,8 +154,8 @@ export default async function NewCarPage({ searchParams }: Props) {
             </label>
             <textarea
               name="description"
+              defaultValue={car.description ?? ""}
               className="min-h-[140px] w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-              placeholder="Skriv beskrivelse av bilen"
             />
           </div>
 
@@ -176,8 +166,8 @@ export default async function NewCarPage({ searchParams }: Props) {
             <input
               name="imageUrl"
               type="text"
+              defaultValue={car.imageUrl ?? ""}
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-              placeholder="/picture/bmw.jpg"
             />
           </div>
 
@@ -185,7 +175,7 @@ export default async function NewCarPage({ searchParams }: Props) {
             type="submit"
             className="cursor-pointer rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800"
           >
-            Lagre bil
+            Lagre endringer
           </button>
         </form>
       </div>

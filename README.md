@@ -103,10 +103,12 @@ npm run dev
 - [x] Lage meldingsoversikt for kundehenvendelser
 - [x] Lage delete funksjon for meldinger
 - [x] Lage add car from
-- [ ] Lage edit car form
+- [x] Lage edit car form
+- [x] Lage delete car funksjon
 - [x] Lage delete car funksjon
 - [ ] Endre status (til salgs / solgt)
 - [x] Lage admin liste over biler
+- [x] Lage update car funksjon
 
 ---
 
