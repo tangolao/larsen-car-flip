@@ -106,6 +106,7 @@ npm run dev
 - [ ] Lage edit car form
 - [x] Lage delete car funksjon
 - [ ] Endre status (til salgs / solgt)
+- [x] Lage admin liste over biler
 
 ---
 

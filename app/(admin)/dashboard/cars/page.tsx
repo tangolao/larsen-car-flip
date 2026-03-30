@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { DeleteCarButton } from "@/components/car/DeleteCarButton";
 
 export const dynamic = "force-dynamic";
 
@@ -74,6 +75,7 @@ export default async function AdminCarsPage() {
                     >
                       Se
                     </Link>
+                    <DeleteCarButton id={car.id} />
                   </div>
                 </div>
               ))}
