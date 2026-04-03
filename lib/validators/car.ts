@@ -6,8 +6,18 @@ export type CarFormErrors = {
   fuel?: string;
   transmission?: string;
 };
+export type CarFormValues = {
+  title: string;
+  price: number;
+  year: number;
+  mileage: number;
+  fuel: string;
+  transmission: string;
+  description: string | null;
+  imageUrl: string | null;
+};
 
-export function validateCarForm(values: any): CarFormErrors {
+export function validateCarForm(values: CarFormValues): CarFormErrors {
   const errors: CarFormErrors = {};
 
   if (!values.title.trim()) {
