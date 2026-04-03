@@ -5,6 +5,14 @@ type Props = {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{
+    title?: string;
+    price?: string;
+    year?: string;
+    mileage?: string;
+    fuel?: string;
+    transmission?: string;
+  }>;
 };
 
 async function updateCar(id: number, formData: FormData) {
@@ -38,8 +46,9 @@ async function updateCar(id: number, formData: FormData) {
   redirect("/dashboard/cars");
 }
 
-export default async function EditCarPage({ params }: Props) {
+export default async function EditCarPage({ params, searchParams }: Props) {
   const { id } = await params;
+  const errors = await searchParams;
 
   const car = await prisma.car.findUnique({
     where: {
@@ -77,6 +86,9 @@ export default async function EditCarPage({ params }: Props) {
               required
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             />
+            {errors.title && (
+              <p className="mt-2 text-sm text-red-600">{errors.title}</p>
+            )}
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
@@ -91,6 +103,9 @@ export default async function EditCarPage({ params }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+              {errors.price && (
+                <p className="mt-2 text-sm text-red-600">{errors.title}</p>
+              )}
             </div>
 
             <div>
@@ -104,6 +119,9 @@ export default async function EditCarPage({ params }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+              {errors.year && (
+                <p className="mt-2 text-sm text-red-600">{errors.title}</p>
+              )}
             </div>
           </div>
 
@@ -119,6 +137,9 @@ export default async function EditCarPage({ params }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+              {errors.mileage && (
+                <p className="mt-2 text-sm text-red-600">{errors.title}</p>
+              )}
             </div>
 
             <div>
@@ -132,6 +153,9 @@ export default async function EditCarPage({ params }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+              {errors.fuel && (
+                <p className="mt-2 text-sm text-red-600">{errors.title}</p>
+              )}
             </div>
           </div>
 
@@ -146,6 +170,9 @@ export default async function EditCarPage({ params }: Props) {
               required
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             />
+            {errors.transmission && (
+              <p className="mt-2 text-sm text-red-600">{errors.title}</p>
+            )}
           </div>
 
           <div>
