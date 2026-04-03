@@ -5,7 +5,12 @@ import { redirect } from "next/navigation";
 
 type Props = {
   searchParams: Promise<{
-    error?: string;
+    title?: string;
+    price?: string;
+    year?: string;
+    mileage?: string;
+    fuel?: string;
+    transmission?: string;
   }>;
 };
 
@@ -34,12 +39,18 @@ async function createCar(formData: FormData) {
 
   const errors = validateCarForm(values);
 
-  if (errors.length > 0) {
-    redirect(
-      `/dashboard/cars/new?error=${encodeURIComponent(errors.join(" "))}`,
-    );
-  }
+  const params = new URLSearchParams();
 
+  if (errors.title) params.set("title", errors.title);
+  if (errors.price) params.set("price", errors.price);
+  if (errors.year) params.set("year", errors.year);
+  if (errors.mileage) params.set("mileage", errors.mileage);
+  if (errors.fuel) params.set("fuel", errors.fuel);
+  if (errors.transmission) params.set("transmission", errors.transmission);
+
+  if (params.toString()) {
+    redirect(`/dashboard/cars/new?${params.toString()}`);
+  }
   await prisma.car.create({
     data: values,
   });
@@ -53,7 +64,6 @@ async function createCar(formData: FormData) {
 
 export default async function NewCarPage({ searchParams }: Props) {
   const params = await searchParams;
-  const error = params.error;
 
   return (
     <main className="min-h-screen bg-gray-50 p-10">
@@ -65,12 +75,6 @@ export default async function NewCarPage({ searchParams }: Props) {
         <h1 className="mt-2 text-3xl font-bold text-gray-900">Legg til bil</h1>
 
         <p className="mt-3 text-gray-600">Opprett en ny bilannonse.</p>
-
-        {error && (
-          <div className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
 
         <form
           action={createCar}
@@ -87,6 +91,9 @@ export default async function NewCarPage({ searchParams }: Props) {
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               placeholder="F.eks. BMW 320d xDrive"
             />
+            {params.title && (
+              <p className="mt-2 text-sm text-red-600">{params.title}</p>
+            )}
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
@@ -101,6 +108,9 @@ export default async function NewCarPage({ searchParams }: Props) {
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
                 placeholder="350000"
               />
+              {params.price && (
+                <p className="mt-2 text-sm text-red-600">{params.price}</p>
+              )}
             </div>
 
             <div>
@@ -115,6 +125,9 @@ export default async function NewCarPage({ searchParams }: Props) {
                 placeholder="2020"
               />
             </div>
+            {params.year && (
+              <p className="mt-2 text-sm text-red-600">{params.year}</p>
+            )}
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
@@ -129,6 +142,9 @@ export default async function NewCarPage({ searchParams }: Props) {
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
                 placeholder="45000"
               />
+              {params.mileage && (
+                <p className="mt-2 text-sm text-red-600">{params.mileage}</p>
+              )}
             </div>
 
             <div>
@@ -142,6 +158,9 @@ export default async function NewCarPage({ searchParams }: Props) {
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
                 placeholder="Diesel"
               />
+              {params.fuel && (
+                <p className="mt-2 text-sm text-red-600">{params.fuel}</p>
+              )}
             </div>
           </div>
 
@@ -156,6 +175,9 @@ export default async function NewCarPage({ searchParams }: Props) {
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               placeholder="Automatic"
             />
+            {params.transmission && (
+              <p className="mt-2 text-sm text-red-600">{params.transmission}</p>
+            )}
           </div>
 
           <div>
