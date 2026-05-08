@@ -4,7 +4,13 @@ import { DeleteCarButton } from "@/components/car/DeleteCarButton";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminCarsPage() {
+type Props = {
+  searchParams: Promise<{
+    success?: string;
+  }>;
+};
+export default async function AdminCarsPage({ searchParams }: Props) {
+  const params = await searchParams;
   const cars = await prisma.car.findMany({
     orderBy: {
       createdAt: "desc",
@@ -32,6 +38,12 @@ export default async function AdminCarsPage() {
             + Legg til bil
           </Link>
         </div>
+
+        {params.success && (
+          <div className="mt-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+            {params.success}
+          </div>
+        )}
 
         <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
           {cars.length === 0 ? (
@@ -75,13 +87,14 @@ export default async function AdminCarsPage() {
                     >
                       Se
                     </Link>
+
                     <Link
                       href={`/dashboard/cars/${car.id}/edit`}
                       className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-100"
                     >
                       Rediger
                     </Link>
-                    ƒ
+
                     <DeleteCarButton id={car.id} />
                   </div>
                 </div>
