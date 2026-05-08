@@ -25,6 +25,7 @@ async function updateCar(id: number, formData: FormData) {
   const mileage = Number(formData.get("mileage"));
   const fuel = formData.get("fuel") as string;
   const transmission = formData.get("transmission") as string;
+  const status = formData.get("status") as string;
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
 
@@ -35,6 +36,7 @@ async function updateCar(id: number, formData: FormData) {
     mileage,
     fuel,
     transmission,
+    status,
     description: description || null,
     imageUrl: imageUrl || null,
   };
@@ -60,8 +62,9 @@ async function updateCar(id: number, formData: FormData) {
     data: values,
   });
 
-  redirect("/dashboard/cars");
+  redirect("/dashboard/cars?success=Bilinformasjon+ble+oppdatert");
 }
+
 export default async function EditCarPage({ params, searchParams }: Props) {
   const { id } = await params;
   const errors = await searchParams;
@@ -82,11 +85,8 @@ export default async function EditCarPage({ params, searchParams }: Props) {
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
           Admin
         </p>
-
         <h1 className="mt-2 text-3xl font-bold text-gray-900">Rediger bil</h1>
-
         <p className="mt-3 text-gray-600">Oppdater informasjon om bilen.</p>
-
         <form
           action={updateCar.bind(null, car.id)}
           className="mt-8 space-y-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200"
@@ -102,11 +102,11 @@ export default async function EditCarPage({ params, searchParams }: Props) {
               required
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             />
+
             {errors.title && (
               <p className="mt-2 text-sm text-red-600">{errors.title}</p>
             )}
           </div>
-
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -119,6 +119,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+
               {errors.price && (
                 <p className="mt-2 text-sm text-red-600">{errors.price}</p>
               )}
@@ -128,6 +129,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Årsmodell
               </label>
+
               <input
                 name="year"
                 type="number"
@@ -135,6 +137,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+
               {errors.year && (
                 <p className="mt-2 text-sm text-red-600">{errors.year}</p>
               )}
@@ -146,6 +149,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Kilometer
               </label>
+
               <input
                 name="mileage"
                 type="number"
@@ -153,6 +157,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+
               {errors.mileage && (
                 <p className="mt-2 text-sm text-red-600">{errors.mileage}</p>
               )}
@@ -162,6 +167,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
               <label className="mb-2 block text-sm font-medium text-gray-700">
                 Drivstoff
               </label>
+
               <input
                 name="fuel"
                 type="text"
@@ -169,6 +175,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
                 required
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
               />
+
               {errors.fuel && (
                 <p className="mt-2 text-sm text-red-600">{errors.fuel}</p>
               )}
@@ -179,6 +186,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Girkasse
             </label>
+
             <input
               name="transmission"
               type="text"
@@ -186,6 +194,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
               required
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             />
+
             {errors.transmission && (
               <p className="mt-2 text-sm text-red-600">{errors.transmission}</p>
             )}
@@ -193,8 +202,25 @@ export default async function EditCarPage({ params, searchParams }: Props) {
 
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
+              Status
+            </label>
+
+            <select
+              name="status"
+              defaultValue={car.status}
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+            >
+              <option value="Til salgs">Til salgs</option>
+              <option value="Reservert">Reservert</option>
+              <option value="Solgt">Solgt</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
               Beskrivelse
             </label>
+
             <textarea
               name="description"
               defaultValue={car.description ?? ""}
@@ -206,6 +232,7 @@ export default async function EditCarPage({ params, searchParams }: Props) {
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Bilde-URL
             </label>
+
             <input
               name="imageUrl"
               type="text"

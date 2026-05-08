@@ -66,10 +66,22 @@ export default async function AdminCarsPage({ searchParams }: Props) {
                       <div className="h-20 w-28 rounded-xl bg-gray-200" />
                     )}
 
-                    <div>
+                    <div className="flex items-center gap-2">
                       <h2 className="text-lg font-semibold text-gray-900">
                         {car.title}
                       </h2>
+                      <span
+                        className={`rounded-full px-2 py-1 text-xs font-medium ${
+                          car.status === "Til salgs"
+                            ? "bg-green-100 text-green-700"
+                            : car.status === "Reservert"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {car.status}
+                      </span>
+
                       <p className="mt-1 text-sm text-gray-600">
                         {car.year} • {car.mileage.toLocaleString("no-NO")} km •{" "}
                         {car.fuel}

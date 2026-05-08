@@ -26,5 +26,6 @@ model Car {
   transmission String
   description  String?
   imageUrl     String?
+  status       String @default("Til salgs")
   createdAt    DateTime @default(now())
 }

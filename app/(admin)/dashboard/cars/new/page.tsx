@@ -23,6 +23,7 @@ async function createCar(formData: FormData) {
   const mileage = Number(formData.get("mileage"));
   const fuel = formData.get("fuel") as string;
   const transmission = formData.get("transmission") as string;
+  const status = formData.get("status") as string;
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
 
@@ -33,6 +34,7 @@ async function createCar(formData: FormData) {
     mileage,
     fuel,
     transmission,
+    status,
     description: description || null,
     imageUrl: imageUrl || null,
   };
@@ -59,7 +61,7 @@ async function createCar(formData: FormData) {
   revalidatePath("/dashboard");
   revalidatePath("/dashboard/cars");
 
-  redirect("/dashboard/cars");
+  redirect("/dashboard/cars?success=Ny+bil+ble+lagt+til");
 }
 
 export default async function NewCarPage({ searchParams }: Props) {
@@ -124,10 +126,10 @@ export default async function NewCarPage({ searchParams }: Props) {
                 className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
                 placeholder="2020"
               />
+              {params.year && (
+                <p className="mt-2 text-sm text-red-600">{params.year}</p>
+              )}
             </div>
-            {params.year && (
-              <p className="mt-2 text-sm text-red-600">{params.year}</p>
-            )}
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
@@ -178,6 +180,22 @@ export default async function NewCarPage({ searchParams }: Props) {
             {params.transmission && (
               <p className="mt-2 text-sm text-red-600">{params.transmission}</p>
             )}
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Status
+            </label>
+
+            <select
+              name="status"
+              defaultValue="Til salgs"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+            >
+              <option value="Til salgs">Til salgs</option>
+              <option value="Reservert">Reservert</option>
+              <option value="Solgt">Solgt</option>
+            </select>
           </div>
 
           <div>
