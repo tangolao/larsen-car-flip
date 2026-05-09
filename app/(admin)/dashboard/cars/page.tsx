@@ -7,11 +7,28 @@ export const dynamic = "force-dynamic";
 type Props = {
   searchParams: Promise<{
     success?: string;
+    q?: string;
   }>;
 };
+
 export default async function AdminCarsPage({ searchParams }: Props) {
   const params = await searchParams;
+  const query = params.q || "";
   const cars = await prisma.car.findMany({
+    where: {
+      OR: [
+        {
+          title: {
+            contains: query,
+          },
+        },
+        {
+          fuel: {
+            contains: query,
+          },
+        },
+      ],
+    },
     orderBy: {
       createdAt: "desc",
     },
@@ -44,6 +61,15 @@ export default async function AdminCarsPage({ searchParams }: Props) {
             {params.success}
           </div>
         )}
+        <form className="mt-6">
+          <input
+            type="text"
+            name="q"
+            defaultValue={query}
+            placeholder="Søk etter bil..."
+            className="w-full rounded-xl border border-gray-300 px-4 py-4 text-gray-900 outline-none focus:border-gray-900"
+          />
+        </form>
 
         <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
           {cars.length === 0 ? (
@@ -65,27 +91,30 @@ export default async function AdminCarsPage({ searchParams }: Props) {
                     ) : (
                       <div className="h-20 w-28 rounded-xl bg-gray-200" />
                     )}
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h2 className="text-lg font-semibold text-gray-900">
+                          {car.title}
+                        </h2>
 
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-lg font-semibold text-gray-900">
-                        {car.title}
-                      </h2>
-                      <span
-                        className={`rounded-full px-2 py-1 text-xs font-medium ${
-                          car.status === "Til salgs"
-                            ? "bg-green-100 text-green-700"
-                            : car.status === "Reservert"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-red-100 text-red-700"
-                        }`}
-                      >
-                        {car.status}
-                      </span>
+                        <span
+                          className={`rounded-full px-2 py-1 text-xs font-medium ${
+                            car.status === "Til salgs"
+                              ? "bg-green-100 text-green-700"
+                              : car.status === "Reservert"
+                                ? "bg-yellow-100 text-yellow-700"
+                                : "bg-red-100 text-red-700"
+                          }`}
+                        >
+                          {car.status}
+                        </span>
+                      </div>
 
                       <p className="mt-1 text-sm text-gray-600">
                         {car.year} • {car.mileage.toLocaleString("no-NO")} km •{" "}
                         {car.fuel}
                       </p>
+
                       <p className="mt-2 text-sm font-medium text-gray-900">
                         {car.price.toLocaleString("no-NO")} kr
                       </p>
