@@ -8,25 +8,36 @@ type Props = {
   searchParams: Promise<{
     success?: string;
     q?: string;
+    status?: string;
   }>;
 };
 
 export default async function AdminCarsPage({ searchParams }: Props) {
   const params = await searchParams;
   const query = params.q || "";
+  const status = params.status || "";
   const cars = await prisma.car.findMany({
     where: {
-      OR: [
+      AND: [
         {
-          title: {
-            contains: query,
-          },
+          OR: [
+            {
+              title: {
+                contains: query,
+              },
+            },
+            {
+              fuel: {
+                contains: query,
+              },
+            },
+          ],
         },
-        {
-          fuel: {
-            contains: query,
-          },
-        },
+        status
+          ? {
+              status: status,
+            }
+          : {},
       ],
     },
     orderBy: {
@@ -69,6 +80,24 @@ export default async function AdminCarsPage({ searchParams }: Props) {
             placeholder="Søk etter bil..."
             className="w-full rounded-xl border border-gray-300 px-4 py-4 text-gray-900 outline-none focus:border-gray-900"
           />
+
+          <select
+            name="status"
+            defaultValue={status}
+            className="w-full rounded-x1 border border-gray-300 px-4 text-gray-900 outline-none focus:border-gray-900"
+          >
+            <option value="">Alle statuser</option>
+            <option value="Til salgs">Til salgs</option>
+            <option value="Reservert">Reservert</option>
+            <option value="Solgt">Solgt</option>
+          </select>
+
+          <button
+            type="submit"
+            className="cursor-pointer rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800 sm:col-span-2"
+          >
+            Søk
+          </button>
         </form>
 
         <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
