@@ -18,14 +18,18 @@ export function CarCard({ car }: CarCardProps) {
   return (
     <Link
       href={`/cars/${car.id}`}
-      className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md"
+      className={`rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-200 transition ${
+        car.status === "Solgt" ? "opacity-70" : "hover:shadow-md"
+      }`}
     >
       {car.imageUrl ? (
         /* eslint-disable-next-line @next/next/no-img-element */
         <img
           src={car.imageUrl}
           alt={car.title}
-          className="aspect-[4/3] w-full rounded-xl object-cover"
+          className={`aspect-[4/3] w-full rounded-xl object-cover ${
+            car.status === "Solgt" ? "grayscale" : ""
+          }`}
         />
       ) : (
         <div className="aspect-[4/3] rounded-xl bg-gray-200" />
