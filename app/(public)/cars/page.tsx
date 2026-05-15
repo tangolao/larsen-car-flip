@@ -4,6 +4,11 @@ import { prisma } from "@/lib/prisma";
 
 export default async function CarsPage() {
   const cars = await prisma.car.findMany({
+    where: {
+      status: {
+        not: "Solgt",
+      },
+    },
     orderBy: {
       createdAt: "desc",
     },
