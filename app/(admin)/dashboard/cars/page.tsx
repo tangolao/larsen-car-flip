@@ -108,6 +108,7 @@ export default async function AdminCarsPage({ searchParams }: Props) {
           </div>
         </form>
 
+        <p className="mt-4 text-sm text-gray-600">Viser {cars.length} biler</p>
         <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
           {cars.length === 0 ? (
             <div className="p-8 text-gray-600">Ingen biler funnet.</div>
