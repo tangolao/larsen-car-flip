@@ -113,6 +113,7 @@ export default async function AdminCarsPage({ searchParams }: Props) {
                 >
                   <div className="flex items-center gap-4">
                     {car.imageUrl ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
                       <img
                         src={car.imageUrl}
                         alt={car.title}
