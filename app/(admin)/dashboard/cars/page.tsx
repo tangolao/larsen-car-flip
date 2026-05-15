@@ -98,6 +98,13 @@ export default async function AdminCarsPage({ searchParams }: Props) {
             >
               Søk
             </button>
+
+            <Link
+              href="/dashboard/cars"
+              className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+            >
+              Nullstill
+            </Link>
           </div>
         </form>
 
