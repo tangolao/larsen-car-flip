@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 import { prisma } from "@/lib/prisma";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{
@@ -40,10 +41,14 @@ export default async function CarDetailPage({ params }: Props) {
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               {car.imageUrl ? (
-                <img
+                <Image
                   src={car.imageUrl}
                   alt={car.title}
-                  className="aspect-[4/3] w-full rounded-2xl object-cover bg-gray-200"
+                  width={1200}
+                  height={900}
+                  className={`aspect-[4/3] w-full rounded-2xl object-cover bg-gray-200 ${
+                    isSold ? "grayscale opacity-70" : ""
+                  }`}
                 />
               ) : (
                 <div className="aspect-[4/3] w-full rounded-2xl bg-gray-200" />
