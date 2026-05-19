@@ -54,10 +54,22 @@ export default async function CarDetailPage({ params }: Props) {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
                 Larsen CarFlip
               </p>
-
-              <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl">
-                {car.title}
-              </h1>
+              <div className="mt-3 flex items-center gap-3">
+                <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                  {car.title}
+                </h1>
+                <span
+                  className={`rounded-full px-3 py-1 text-sm font-medium ${
+                    car.status === "Til salgs"
+                      ? "bg-green-100 text-green-700"
+                      : car.status === "Reservert"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {car.status}
+                </span>
+              </div>
 
               <p className="mt-4 text-3xl font-bold text-gray-900">
                 {car.price.toLocaleString("no-NO")} kr
