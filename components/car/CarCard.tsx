@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 type CarCardProps = {
   car: {
@@ -23,10 +24,11 @@ export function CarCard({ car }: CarCardProps) {
       }`}
     >
       {car.imageUrl ? (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
+        <Image
           src={car.imageUrl}
           alt={car.title}
+          width={600}
+          height={450}
           className={`aspect-[4/3] w-full rounded-xl object-cover ${
             car.status === "Solgt" ? "grayscale" : ""
           }`}
