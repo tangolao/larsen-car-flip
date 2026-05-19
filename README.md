@@ -26,7 +26,7 @@ npm run dev
 
 ### 🧱 Setup
 
-- [x] Setup Next.js prosjekt
+- [x] Setup NeXt.js prosjekt
 - [x] Routing med App Router
 - [x] Opprettet /cars side
 - [x] Hentet data fra Prisma (database)
@@ -41,9 +41,9 @@ npm run dev
 ## 🚧 Oppgaver som gjenstår
 
 - [ ] Bedre styling (hover / animation)
-- [ ] Validering av skjema
-- [ ] Lagre kontaktmelding i database
-- [ ] Admin side (legg til / edit bil)
+- [x] Validering av skjema
+- [x] Lagre kontaktmelding i database
+- [x] Admin side (legg til / edit bil)
 
 ### 🗂 Routing
 
@@ -72,10 +72,10 @@ npm run dev
 ### ⚙️ Backend
 
 - [x] Sette opp API routes
-- [ ] Lage cars API (CRUD)
+- [x] Lage cars API (CRUD)
 - [x] Lage auth system (login/admin)
 - [x] Lage contact/lead system
-- [ ] Input validering
+- [x] Input validering
 
 ---
 
@@ -105,8 +105,7 @@ npm run dev
 - [x] Lage add car from
 - [x] Lage edit car form
 - [x] Lage delete car funksjon
-- [x] Lage delete car funksjon
-- [ ] Endre status (til salgs / solgt)
+- [x] Endre status (til salgs / solgt)
 - [x] Lage admin liste over biler
 - [x] Lage update car funksjon
 
@@ -124,7 +123,7 @@ npm run dev
 
 Dette prosjektet viser:
 
-- Fullstack utvikling (Next.js)
+- Fullstack utvikling (NeXt.js)
 - Routing og struktur
 - API design
 - Database design

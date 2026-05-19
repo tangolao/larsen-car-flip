@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
+import { Footer } from "@/components/layout/Footer";
 
 type Props = {
   params: Promise<{
@@ -121,6 +122,7 @@ export default async function CarDetailPage({ params }: Props) {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

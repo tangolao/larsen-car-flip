@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { CarCard } from "@/components/car/CarCard";
 import { prisma } from "@/lib/prisma";
+import { Footer } from "@/components/layout/Footer";
 
 export default async function CarsPage() {
   const cars = await prisma.car.findMany({
@@ -40,6 +41,7 @@ export default async function CarsPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
