@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { DeleteCarButton } from "@/components/car/DeleteCarButton";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -121,10 +122,11 @@ export default async function AdminCarsPage({ searchParams }: Props) {
                 >
                   <div className="flex items-center gap-4">
                     {car.imageUrl ? (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img
+                      <Image
                         src={car.imageUrl}
                         alt={car.title}
+                        width={112}
+                        height={80}
                         className="h-20 w-28 rounded-xl object-cover bg-gray-200"
                       />
                     ) : (
