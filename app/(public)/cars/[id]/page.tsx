@@ -22,6 +22,8 @@ export default async function CarDetailPage({ params }: Props) {
     return <div className="p-10">Car not found</div>;
   }
 
+  const isSold = car.status === "Solgt";
+
   return (
     <>
       <Navbar />
@@ -91,7 +93,13 @@ export default async function CarDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              <ContactSellerForm carTitle={car.title} />
+              {isSold ? (
+                <div className="mt-8 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  Denne bilen er solgt og kan ikke lenger kontaktes.
+                </div>
+              ) : (
+                <ContactSellerForm carTitle={car.title} />
+              )}
             </div>
           </div>
         </section>
