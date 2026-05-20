@@ -34,7 +34,19 @@ export default async function CarsPage() {
             </p>
           </div>
 
-          <LoadMoreCars cars={cars} />
+          {cars.length === 0 ? (
+            <div className="rounded-2xl bg-white p-10 text-center shadow-sm ring-1 ring-gray-200">
+              <h2 className="text-xl font-bold text-gray-900">
+                Ingen biler tilgjengelig
+              </h2>
+
+              <p className="mt-2 text-gray-600">
+                Det er ingen biler tilgjengelig akkurat nå.
+              </p>
+            </div>
+          ) : (
+            <LoadMoreCars cars={cars} />
+          )}
         </section>
       </main>
       <Footer />
