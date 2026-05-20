@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
-import { CarCard } from "@/components/car/CarCard";
 import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
+import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 
 export default async function CarsPage() {
   const cars = await prisma.car.findMany({
@@ -34,11 +34,7 @@ export default async function CarsPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {cars.map((car) => (
-              <CarCard key={car.id} car={car} />
-            ))}
-          </div>
+          <LoadMoreCars cars={cars} />
         </section>
       </main>
       <Footer />
