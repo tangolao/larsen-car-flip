@@ -20,7 +20,7 @@ export default async function CarsPage() {
       <Navbar />
 
       <main className="min-h-screen bg-gray-50">
-        <section className="mx-auto max-w-6xl px-6 py-10">
+        <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
           <div className="mb-8">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
               Larsen CarFlip
