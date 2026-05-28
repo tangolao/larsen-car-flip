@@ -112,7 +112,22 @@ export default async function AdminCarsPage({ searchParams }: Props) {
         <p className="mt-4 text-sm text-gray-600">Viser {cars.length} biler</p>
         <div className="mt-8 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
           {cars.length === 0 ? (
-            <div className="p-8 text-gray-600">Ingen biler funnet.</div>
+            <div className="p-10 text-center">
+              <h2 className="text-xl font-bold text-gray-900">
+                Ingen biler funnet
+              </h2>
+
+              <p className="mt-2 text-gray-600">
+                Prøv å endre søket eller nullstille filteret.
+              </p>
+
+              <Link
+                href="/dashboard/cars"
+                className="mt-6 inline-block rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+              >
+                Nullstill filter
+              </Link>
+            </div>
           ) : (
             <div className="divide-y divide-gray-200">
               {cars.map((car) => (
