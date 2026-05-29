@@ -81,11 +81,11 @@ npm run dev
 
 ### 🗄 Database
 
-- [ ] Designe database (ER diagram)
+- [x] Designe database (ER diagram)
 - [x] Opprette database (Prisma + SQLite/Postgres)
 - [x] Lage tabeller (cars, users, leads)
 - [x] Koble database til backend
-- [ ] Migrere fullt til PostgreSQL (production)
+- [x] Migrere fullt til PostgreSQL (production)
 
 ---
 
