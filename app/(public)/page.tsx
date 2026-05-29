@@ -5,6 +5,9 @@ import { prisma } from "@/lib/prisma";
 
 export default async function HomePage() {
   const featuredCars = await prisma.car.findMany({
+    include: {
+      images: true,
+    },
     where: {
       status: {
         not: "Solgt",

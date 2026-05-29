@@ -28,4 +28,15 @@ model Car {
   imageUrl     String?
   status       String @default("Til salgs")
   createdAt    DateTime @default(now())
+  
+  images       CarImage[]
+}
+
+model CarImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  createdAt DateTime @default(now())
+
+  carId     Int
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
 }

@@ -12,20 +12,26 @@ type CarCardProps = {
     transmission: string;
     status: string;
     imageUrl: string | null;
+    images?: {
+      id: number;
+      url: string;
+    }[];
   };
 };
 
 export function CarCard({ car }: CarCardProps) {
+  const coverImage = car.images?.[0]?.url || car.imageUrl;
+
   return (
     <Link
       href={`/cars/${car.id}`}
-      className={`rounded-2xl bg-white p-3 sm:p-4 shadow-sm ring-1 ring-gray-200 transition ${
+      className={`rounded-2xl bg-white p-3 shadow-sm ring-1 ring-gray-200 transition sm:p-4 ${
         car.status === "Solgt" ? "opacity-70" : "hover:shadow-md"
       }`}
     >
-      {car.imageUrl ? (
+      {coverImage ? (
         <Image
-          src={car.imageUrl}
+          src={coverImage}
           alt={car.title}
           width={600}
           height={450}

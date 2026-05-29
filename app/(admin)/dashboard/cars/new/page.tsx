@@ -26,6 +26,12 @@ async function createCar(formData: FormData) {
   const status = formData.get("status") as string;
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
+  const imageUrlsText = (formData.get("imageUrls") as string) || "";
+
+  const imageUrls = imageUrlsText
+    .split("\n")
+    .map((url) => url.trim())
+    .filter(Boolean);
 
   const values = {
     title,
@@ -36,7 +42,7 @@ async function createCar(formData: FormData) {
     transmission,
     status,
     description: description || null,
-    imageUrl: imageUrl || null,
+    imageUrl: imageUrls[0] || imageUrl || null,
   };
 
   const errors = validateCarForm(values);
@@ -54,7 +60,14 @@ async function createCar(formData: FormData) {
     redirect(`/dashboard/cars/new?${params.toString()}`);
   }
   await prisma.car.create({
-    data: values,
+    data: {
+      ...values,
+      images: {
+        create: imageUrls.map((url) => ({
+          url,
+        })),
+      },
+    },
   });
 
   revalidatePath("/cars");
@@ -213,11 +226,10 @@ export default async function NewCarPage({ searchParams }: Props) {
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Bilde-URL
             </label>
-            <input
-              name="imageUrl"
-              type="text"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-              placeholder="/picture/bmw.jpg"
+            <textarea
+              name="imageUrls"
+              className="min-h-[120px] w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+              placeholder="Legg inn én bilde-URL per linje"
             />
           </div>
 

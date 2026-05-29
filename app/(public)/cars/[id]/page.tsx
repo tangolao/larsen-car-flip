@@ -18,6 +18,9 @@ export default async function CarDetailPage({ params }: Props) {
     where: {
       id: Number(id),
     },
+    include: {
+      images: true,
+    },
   });
 
   if (!car) {
@@ -25,6 +28,12 @@ export default async function CarDetailPage({ params }: Props) {
   }
 
   const isSold = car.status === "Solgt";
+  const galleryImages =
+    car.images.length > 0
+      ? car.images.map((image) => image.url)
+      : car.imageUrl
+        ? [car.imageUrl]
+        : [];
 
   return (
     <>
@@ -41,16 +50,33 @@ export default async function CarDetailPage({ params }: Props) {
 
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
-              {car.imageUrl ? (
-                <Image
-                  src={car.imageUrl}
-                  alt={car.title}
-                  width={1200}
-                  height={900}
-                  className={`aspect-[4/3] w-full rounded-2xl object-cover bg-gray-200 ${
-                    isSold ? "grayscale opacity-70" : ""
-                  }`}
-                />
+              {galleryImages.length > 0 ? (
+                <>
+                  <Image
+                    src={galleryImages[0]}
+                    alt={car.title}
+                    width={1200}
+                    height={900}
+                    className={`aspect-[4/3] w-full rounded-2xl bg-gray-200 object-cover ${
+                      isSold ? "grayscale opacity-70" : ""
+                    }`}
+                  />
+
+                  {galleryImages.length > 1 && (
+                    <div className="mt-4 grid grid-cols-3 gap-3">
+                      {galleryImages.map((imageUrl, index) => (
+                        <Image
+                          key={imageUrl}
+                          src={imageUrl}
+                          alt={`${car.title} bilde ${index + 1}`}
+                          width={300}
+                          height={225}
+                          className="aspect-[4/3] rounded-xl bg-gray-200 object-cover"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="aspect-[4/3] w-full rounded-2xl bg-gray-200" />
               )}

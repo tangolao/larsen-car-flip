@@ -158,9 +158,9 @@ Målet er å videreutvikle det til en produksjonsklar applikasjon.
 
 ### 🌍 Deployment
 
-- [ ] Deploy til Vercel
-- [ ] Koble til database i produksjon
-- [ ] Legge til eget domene
+- [x] Deploy til Vercel
+- [x] Koble til database i produksjon
+- [x] Legge til eget domene
 
 ### ⚠️ Kvalitet og sikkerhet
 

@@ -5,6 +5,9 @@ import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 
 export default async function CarsPage() {
   const cars = await prisma.car.findMany({
+    include: {
+      images: true,
+    },
     where: {
       NOT: {
         status: "Solgt",
