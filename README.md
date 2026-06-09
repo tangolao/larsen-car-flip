@@ -58,14 +58,15 @@ npm run dev
 ### 🎨 Frontend (UI)
 
 - [x] Lage Navbar (global layout)
-- [ ] Lage Footer
-- [ ] Lage Home page design
+- [x] Lage Footer
+- [x] Lage Home page design
 - [x] Lage Cars list UI (grid)
 - [x] Lage CarCard component
 - [x] Lage Car detail page design
-- [ ] Lage responsive design (mobile)
+- [x] Lage responsive design (mobile)
 - [x] Vise bilde på detail page
-- [ ] Lage bildegalleri (carousel)
+- [x] Lage bildegalleri
+- [ ] Lage interaktiv carousel
 
 ---
 
@@ -73,7 +74,9 @@ npm run dev
 
 - [x] Sette opp API routes
 - [x] Lage cars API (CRUD)
-- [x] Lage auth system (login/admin)
+- [ ] Lage auth system (NextAuth / Better Auth)
+- [x] Enkel admin login
+- [x] Beskyttede admin-ruter
 - [x] Lage contact/lead system
 - [x] Input validering
 
@@ -85,7 +88,7 @@ npm run dev
 - [x] Opprette database (Prisma + SQLite/Postgres)
 - [x] Lage tabeller (cars, users, leads)
 - [x] Koble database til backend
-- [x] Migrere fullt til PostgreSQL (production)
+- [x] Migrere fullt til PostgreSQL (Neon)
 
 ---
 
@@ -93,7 +96,19 @@ npm run dev
 
 - [ ] Implementere image upload
 - [ ] Integrere Cloudinary / storage
-- [ ] Koble bilder til biler
+- [x] Koble bilder til biler
+- [x] Flere bilder per bil
+- [x] Bildegalleri på detaljside
+
+---
+
+### 📸 Multi Image Gallery
+
+- [x] CarImage relation
+- [x] One-to-many image structure
+- [x] Admin kan legge til flere bilder
+- [x] Hovedbilde genereres automatisk
+- [x] Thumbnail gallery på detaljside
 
 ---
 
@@ -113,8 +128,8 @@ npm run dev
 
 ### 🌍 Deployment
 
-- [ ] Deploy til Vercel
-- [ ] Koble database i produksjon
+- [x] Deploy til Vercel
+- [x] Koble database i produksjon
 - [ ] Legge til domain
 
 ---
@@ -147,20 +162,14 @@ Målet er å videreutvikle det til en produksjonsklar applikasjon.
 
 ### 🗄 Database og backend
 
-- [ ] Integrere PostgreSQL
-- [ ] Lage full CRUD API for biler
-- [ ] Lagre data i database
+- [x] Integrere PostgreSQL (Neon)
+- [x] Lage full CRUD funksjonalitet for biler
+- [x] Lagre data i database
 
 ### 📸 Bilder
 
 - [ ] Implementere bildeopplasting
 - [ ] Koble til Cloudinary / storage
-
-### 🌍 Deployment
-
-- [x] Deploy til Vercel
-- [x] Koble til database i produksjon
-- [x] Legge til eget domene
 
 ### ⚠️ Kvalitet og sikkerhet
 
