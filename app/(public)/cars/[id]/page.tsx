@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 import { prisma } from "@/lib/prisma";
-import Image from "next/image";
 import { Footer } from "@/components/layout/Footer";
+import { CarGallery } from "@/components/car/CarGallery";
 
 type Props = {
   params: Promise<{
@@ -49,39 +49,11 @@ export default async function CarDetailPage({ params }: Props) {
           </Link>
 
           <div className="grid gap-10 lg:grid-cols-2">
-            <div>
-              {galleryImages.length > 0 ? (
-                <>
-                  <Image
-                    src={galleryImages[0]}
-                    alt={car.title}
-                    width={1200}
-                    height={900}
-                    className={`aspect-[4/3] w-full rounded-2xl bg-gray-200 object-cover ${
-                      isSold ? "grayscale opacity-70" : ""
-                    }`}
-                  />
-
-                  {galleryImages.length > 1 && (
-                    <div className="mt-4 grid grid-cols-3 gap-3">
-                      {galleryImages.map((imageUrl, index) => (
-                        <Image
-                          key={imageUrl}
-                          src={imageUrl}
-                          alt={`${car.title} bilde ${index + 1}`}
-                          width={300}
-                          height={225}
-                          className="aspect-[4/3] rounded-xl bg-gray-200 object-cover"
-                        />
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="aspect-[4/3] w-full rounded-2xl bg-gray-200" />
-              )}
-            </div>
-
+            {galleryImages.length > 0 ? (
+              <CarGallery images={galleryImages} title={car.title} />
+            ) : (
+              <div className="aspect-[4/3] w-full rounded-2xl bg-gray-200" />
+            )}
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
                 Larsen CarFlip
