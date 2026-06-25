@@ -140,7 +140,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
           <button
             type="button"
             onClick={goToPrevious}
-            className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-5 py-3 text-3xl font-bold text-white hover:bg-white/20"
+            className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-5 py-3 text-3xl font-bold text-white hover:bg-white/20 cursor-pointer"
             aria-label="Forrige bilde"
           >
             ‹
@@ -164,7 +164,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
           <button
             type="button"
             onClick={goToNext}
-            className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-5 py-3 text-3xl font-bold text-white hover:bg-white/20"
+            className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-5 py-3 text-3xl font-bold text-white hover:bg-white/20 cursor-pointer"
             aria-label="Neste bilde"
           >
             ›
