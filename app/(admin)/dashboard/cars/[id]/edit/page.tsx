@@ -28,6 +28,12 @@ async function updateCar(id: number, formData: FormData) {
   const status = formData.get("status") as string;
   const description = formData.get("description") as string;
   const imageUrl = formData.get("imageUrl") as string;
+  const imageUrlsText = (formData.get("imageUrls") as string) || "";
+
+  const imageUrls = imageUrlsText
+    .split("\n")
+    .map((url) => url.trim())
+    .filter(Boolean);
 
   const values = {
     title,
@@ -38,7 +44,7 @@ async function updateCar(id: number, formData: FormData) {
     transmission,
     status,
     description: description || null,
-    imageUrl: imageUrl || null,
+    imageUrl: imageUrls[0] || imageUrl || null,
   };
 
   const errors = validateCarForm(values);
@@ -59,7 +65,15 @@ async function updateCar(id: number, formData: FormData) {
     where: {
       id,
     },
-    data: values,
+    data: {
+      ...values,
+      images: {
+        deleteMany: {},
+        create: imageUrls.map((url) => ({
+          url,
+        })),
+      },
+    },
   });
 
   redirect("/dashboard/cars?success=Bilinformasjon+ble+oppdatert");
@@ -73,11 +87,18 @@ export default async function EditCarPage({ params, searchParams }: Props) {
     where: {
       id: Number(id),
     },
+    include: {
+      images: true,
+    },
   });
 
   if (!car) {
     return <div className="p-10">Bil ikke funnet.</div>;
   }
+  const imageUrlsText =
+    car.images.length > 0
+      ? car.images.map((image) => image.url).join("\n")
+      : (car.imageUrl ?? "");
 
   return (
     <main className="min-h-screen bg-gray-50 p-10">
@@ -233,11 +254,11 @@ export default async function EditCarPage({ params, searchParams }: Props) {
               Bilde-URL
             </label>
 
-            <input
-              name="imageUrl"
-              type="text"
-              defaultValue={car.imageUrl ?? ""}
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+            <textarea
+              name="imageUrls"
+              defaultValue={imageUrlsText}
+              className="min-h-[120px] w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+              placeholder="Legg inn én bilde-URL per linje"
             />
           </div>
 
