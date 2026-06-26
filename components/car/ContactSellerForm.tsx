@@ -81,6 +81,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
           </label>
           <input
             id="name"
+            name="name"
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -99,6 +100,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
           </label>
           <input
             id="email"
+            name="email"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -117,6 +119,7 @@ export function ContactSellerForm({ carTitle }: ContactSellerFormProps) {
           </label>
           <textarea
             id="message"
+            name="message"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             className="min-h-[120px] w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
