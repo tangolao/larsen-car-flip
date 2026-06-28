@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { validateCarForm } from "@/lib/validators/car";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { ImageUpload } from "@/components/car/ImageUpload";
 
 type Props = {
   searchParams: Promise<{
@@ -226,11 +227,7 @@ export default async function NewCarPage({ searchParams }: Props) {
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Bilde-URL
             </label>
-            <textarea
-              name="imageUrls"
-              className="min-h-[120px] w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
-              placeholder="Legg inn én bilde-URL per linje"
-            />
+            <ImageUpload name="imageUrls" />
           </div>
 
           <button
