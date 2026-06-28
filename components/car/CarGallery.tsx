@@ -10,13 +10,18 @@ type CarGalleryProps = {
 export function CarGallery({ images, title }: CarGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
+  const uniqueImages = [...new Set(images)];
 
   function goToPrevious() {
-    setSelectedImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setSelectedImage((prev) =>
+      prev === 0 ? uniqueImages.length - 1 : prev - 1,
+    );
   }
 
   function goToNext() {
-    setSelectedImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setSelectedImage((prev) =>
+      prev === uniqueImages.length - 1 ? 0 : prev + 1,
+    );
   }
 
   function openFullscreen() {
@@ -57,7 +62,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [images.length]);
+  }, [uniqueImages.length]);
 
   return (
     <>
@@ -69,14 +74,14 @@ export function CarGallery({ images, title }: CarGalleryProps) {
             className="block w-full cursor-zoom-in"
           >
             <img
-              src={images[selectedImage]}
+              src={uniqueImages[selectedImage]}
               alt={`${title} ${selectedImage + 1}`}
               className="h-[420px] w-full object-cover"
             />
           </button>
 
           <div className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1 text-sm font-medium text-white">
-            {selectedImage + 1} / {images.length}
+            {selectedImage + 1} / {uniqueImages.length}
           </div>
 
           <button
@@ -99,13 +104,12 @@ export function CarGallery({ images, title }: CarGalleryProps) {
         </div>
 
         <div className="mt-4 grid grid-cols-3 gap-3">
-          {images.map((image, index) => (
+          {uniqueImages.map((image, index) => (
             <button
               key={index}
               type="button"
               onClick={() => {
                 setSelectedImage(index);
-                openFullscreen();
               }}
               className={`overflow-hidden rounded-xl border-2 transition ${
                 selectedImage === index
@@ -131,7 +135,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
           <button
             type="button"
             onClick={closeFullscreen}
-            className="absolute right-6 top-6 rounded-full bg-white/10 px-4 py-2 text-2xl font-bold text-white hover:bg-white/20"
+            className="absolute right-6 top-6 rounded-full bg-white/10 px-4 py-2 text-2xl font-bold text-white hover:bg-white/20 cursor-pointer"
             aria-label="Lukk"
           >
             ✕
@@ -151,13 +155,13 @@ export function CarGallery({ images, title }: CarGalleryProps) {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={images[selectedImage]}
+              src={uniqueImages[selectedImage]}
               alt={`${title} ${selectedImage + 1}`}
               className="max-h-[80vh] w-auto max-w-full rounded-xl object-contain "
             />
 
             <div className="mt-4 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white">
-              {selectedImage + 1} / {images.length}
+              {selectedImage + 1} / {uniqueImages.length}
             </div>
           </div>
 
