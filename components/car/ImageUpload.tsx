@@ -18,10 +18,11 @@ type ImageUploadProps = {
 
 type SortableImageProps = {
   url: string;
+  index: number;
   onRemove: (url: string) => void;
 };
 
-function SortableImage({ url, onRemove }: SortableImageProps) {
+function SortableImage({ url, index, onRemove }: SortableImageProps) {
   const {
     attributes,
     listeners,
@@ -58,7 +59,11 @@ function SortableImage({ url, onRemove }: SortableImageProps) {
           className="h-28 w-full object-cover"
         />
       </button>
-
+      {index === 0 && (
+        <div className="absolute left-2 top-2 rounded-full bg-green-600 px-2 py-1 text-xs font-bold text-white">
+          Cover
+        </div>
+      )}
       <button
         type="button"
         onClick={() => onRemove(url)}
@@ -160,8 +165,13 @@ export function ImageUpload({ name, defaultValue = "" }: ImageUploadProps) {
         >
           <SortableContext items={previewUrls} strategy={rectSortingStrategy}>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {previewUrls.map((url) => (
-                <SortableImage key={url} url={url} onRemove={removeImage} />
+              {previewUrls.map((url, index) => (
+                <SortableImage
+                  key={url}
+                  url={url}
+                  index={index}
+                  onRemove={removeImage}
+                />
               ))}
             </div>
           </SortableContext>
