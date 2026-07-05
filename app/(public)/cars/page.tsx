@@ -7,6 +7,7 @@ type Props = {
   searchParams: Promise<{
     q?: string;
     status?: string;
+    sort?: string;
   }>;
 };
 
@@ -14,6 +15,18 @@ export default async function CarsPage({ searchParams }: Props) {
   const params = await searchParams;
   const q = params.q ?? "";
   const status = params.status ?? "";
+  const sort = params.sort ?? "newest";
+  const orderBy =
+    sort === "price-low"
+      ? { price: "asc" as const }
+      : sort === "price-high"
+        ? { price: "desc" as const }
+        : sort === "year-new"
+          ? { year: "desc" as const }
+          : sort === "mileage-low"
+            ? { mileage: "asc" as const }
+            : { createdAt: "desc" as const };
+
   const cars = await prisma.car.findMany({
     include: {
       images: true,
@@ -32,9 +45,7 @@ export default async function CarsPage({ searchParams }: Props) {
           }
         : {}),
     },
-    orderBy: {
-      createdAt: "desc",
-    },
+    orderBy,
   });
 
   return (
@@ -73,6 +84,18 @@ export default async function CarsPage({ searchParams }: Props) {
               <option value="">Alle</option>
               <option value="Til salgs">Til salgs</option>
               <option value="Reservert">Reservert</option>
+            </select>
+
+            <select
+              name="sort"
+              defaultValue={sort}
+              className="rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+            >
+              <option value="newest">Nyeste</option>
+              <option value="price-low">Laveste pris</option>
+              <option value="price-high">Høyeste pris</option>
+              <option value="year-new">Nyeste årsmodell</option>
+              <option value="mileage-low">Laveste kilometer</option>
             </select>
 
             <button
