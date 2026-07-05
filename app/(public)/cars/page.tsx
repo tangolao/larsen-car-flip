@@ -3,7 +3,15 @@ import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
 import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 
-export default async function CarsPage() {
+type Props = {
+  searchParams: Promise<{
+    q?: string;
+  }>;
+};
+
+export default async function CarsPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const q = params.q ?? "";
   const cars = await prisma.car.findMany({
     include: {
       images: true,
@@ -11,6 +19,10 @@ export default async function CarsPage() {
     where: {
       NOT: {
         status: "Solgt",
+      },
+      title: {
+        contains: q,
+        mode: "insensitive",
       },
     },
     orderBy: {
@@ -36,6 +48,23 @@ export default async function CarsPage() {
               og klargjort for salg.
             </p>
           </div>
+
+          <form className="mb-8 flex gap-3">
+            <input
+              name="q"
+              type="text"
+              defaultValue={q}
+              placeholder="Søk etter bil..."
+              className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+            />
+
+            <button
+              type="submit"
+              className="cursor-pointer rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800"
+            >
+              Søk
+            </button>
+          </form>
 
           {cars.length === 0 ? (
             <div className="rounded-2xl bg-white p-10 text-center shadow-sm ring-1 ring-gray-200">
