@@ -5,6 +5,16 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const messageCount = await prisma.contactMessage.count();
+  const carCount = await prisma.car.count();
+  const availableCount = await prisma.car.count({
+    where: { status: "Til salgs" },
+  });
+  const reservedCount = await prisma.car.count({
+    where: { status: "Reservert" },
+  });
+  const soldCount = await prisma.car.count({
+    where: { status: "Solgt" },
+  });
 
   return (
     <main className="min-h-screen bg-gray-50 p-10">
@@ -23,7 +33,7 @@ export default async function DashboardPage() {
           <form action="/api/logout" method="POST">
             <button
               type="submit"
-              className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 cursor-pointer"
+              className="cursor-pointer rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800"
             >
               Logg ut
             </button>
@@ -34,6 +44,43 @@ export default async function DashboardPage() {
           Oversikt over administrasjonssider.
         </p>
 
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+            <p className="text-sm font-medium text-gray-500">Biler totalt</p>
+            <h2 className="mt-2 text-3xl font-bold text-gray-900">
+              {carCount}
+            </h2>
+          </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+            <p className="text-sm font-medium text-gray-500">Til salgs</p>
+            <h2 className="mt-2 text-3xl font-bold text-green-700">
+              {availableCount}
+            </h2>
+          </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+            <p className="text-sm font-medium text-gray-500">Reservert</p>
+            <h2 className="mt-2 text-3xl font-bold text-yellow-700">
+              {reservedCount}
+            </h2>
+          </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+            <p className="text-sm font-medium text-gray-500">Solgt</p>
+            <h2 className="mt-2 text-3xl font-bold text-red-700">
+              {soldCount}
+            </h2>
+          </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+            <p className="text-sm font-medium text-gray-500">Meldinger</p>
+            <h2 className="mt-2 text-3xl font-bold text-gray-900">
+              {messageCount}
+            </h2>
+          </div>
+        </div>
+
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <Link
             href="/dashboard/messages"
@@ -41,12 +88,13 @@ export default async function DashboardPage() {
           >
             <p className="text-sm font-medium text-gray-500">Meldinger</p>
             <h2 className="mt-2 text-2xl font-bold text-gray-900">
-              {messageCount}
+              Se henvendelser
             </h2>
             <p className="mt-2 text-sm text-gray-600">
               Se kundehenvendelser fra kontaktskjemaet
             </p>
           </Link>
+
           <Link
             href="/dashboard/cars/new"
             className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md"
