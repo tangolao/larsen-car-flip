@@ -6,12 +6,14 @@ import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 type Props = {
   searchParams: Promise<{
     q?: string;
+    status?: string;
   }>;
 };
 
 export default async function CarsPage({ searchParams }: Props) {
   const params = await searchParams;
   const q = params.q ?? "";
+  const status = params.status ?? "";
   const cars = await prisma.car.findMany({
     include: {
       images: true,
@@ -24,6 +26,11 @@ export default async function CarsPage({ searchParams }: Props) {
         contains: q,
         mode: "insensitive",
       },
+      ...(status
+        ? {
+            status,
+          }
+        : {}),
     },
     orderBy: {
       createdAt: "desc",
@@ -49,7 +56,7 @@ export default async function CarsPage({ searchParams }: Props) {
             </p>
           </div>
 
-          <form className="mb-8 flex gap-3">
+          <form className="mb-8 flex flex-col gap-3 sm:flex-row">
             <input
               name="q"
               type="text"
@@ -57,6 +64,16 @@ export default async function CarsPage({ searchParams }: Props) {
               placeholder="Søk etter bil..."
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             />
+
+            <select
+              name="status"
+              defaultValue={status}
+              className="rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
+            >
+              <option value="">Alle</option>
+              <option value="Til salgs">Til salgs</option>
+              <option value="Reservert">Reservert</option>
+            </select>
 
             <button
               type="submit"
