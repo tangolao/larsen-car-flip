@@ -117,6 +117,22 @@ export default async function CarsPage({ searchParams }: Props) {
             Fant {cars.length} {cars.length === 1 ? "bil" : "biler"}
           </p>
 
+          {(q || status) && (
+            <p className="-mt-4 mb-6 text-sm text-gray-500">
+              {q && (
+                <>
+                  Søker etter: <span className="font-medium">{q}</span>
+                </>
+              )}
+              {q && status && " · "}
+              {status && (
+                <>
+                  Status: <span className="font-medium">{status}</span>
+                </>
+              )}
+            </p>
+          )}
+
           {cars.length === 0 ? (
             <div className="rounded-2xl bg-white p-10 text-center shadow-sm ring-1 ring-gray-200">
               <h2 className="text-xl font-bold text-gray-900">
