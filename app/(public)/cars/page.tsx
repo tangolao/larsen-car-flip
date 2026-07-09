@@ -72,7 +72,6 @@ export default async function CarsPage({ searchParams }: Props) {
             <input
               name="q"
               type="text"
-              defaultValue={q}
               placeholder="Søk etter bil..."
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
             />
@@ -113,7 +112,11 @@ export default async function CarsPage({ searchParams }: Props) {
               Nullstill
             </Link>
           </form>
-          <p className="mb-6 text-sm text-gray-600">
+          <p
+            className={`mb-6 text-base font-semibold ${
+              cars.length > 0 ? "text-green-700" : "text-red-600"
+            }`}
+          >
             Fant {cars.length} {cars.length === 1 ? "bil" : "biler"}
           </p>
 
