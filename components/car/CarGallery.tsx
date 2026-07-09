@@ -129,7 +129,7 @@ export function CarGallery({ images, title }: CarGalleryProps) {
 
       {isFullscreenOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-6"
           onClick={closeFullscreen}
         >
           <button
