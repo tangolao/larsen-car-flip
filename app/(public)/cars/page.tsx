@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
 import { LoadMoreCars } from "@/components/car/LoadMoreCars";
+import Link from "next/link";
 
 type Props = {
   searchParams: Promise<{
@@ -104,6 +105,13 @@ export default async function CarsPage({ searchParams }: Props) {
             >
               Søk
             </button>
+
+            <Link
+              href="/cars"
+              className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-center text-sm font-semibold text-gray-700 hover:bg-gray-50"
+            >
+              Nullstill
+            </Link>
           </form>
 
           {cars.length === 0 ? (
