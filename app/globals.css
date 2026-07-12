@@ -39,3 +39,8 @@ body {
 .animate-fade {
   animation: fadeOut 2s ease forwards;
 }
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
