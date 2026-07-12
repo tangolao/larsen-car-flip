@@ -4,12 +4,49 @@ import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
 import { CarGallery } from "@/components/car/CarGallery";
+import type { Metadata } from "next";
 
 type Props = {
   params: Promise<{
     id: string;
   }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+
+  const car = await prisma.car.findUnique({
+    where: {
+      id: Number(id),
+    },
+    select: {
+      title: true,
+      description: true,
+      imageUrl: true,
+    },
+  });
+
+  if (!car) {
+    return {
+      title: "Bil ikke funnet",
+      description: "Bilen du leter etter finnes ikke.",
+    };
+  }
+
+  return {
+    title: car.title,
+    description:
+      car.description ??
+      `Se detaljer, pris og informasjon om ${car.title} hos Larsen CarFlip.`,
+    openGraph: {
+      title: car.title,
+      description:
+        car.description ??
+        `Se detaljer, pris og informasjon om ${car.title} hos Larsen CarFlip.`,
+      images: car.imageUrl ? [car.imageUrl] : [],
+    },
+  };
+}
 
 export default async function CarDetailPage({ params }: Props) {
   const { id } = await params;
