@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
 import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 type Props = {
   searchParams: Promise<{
@@ -10,6 +11,12 @@ type Props = {
     status?: string;
     sort?: string;
   }>;
+};
+
+export const metadata: Metadata = {
+  title: "Biler til salgs",
+  description:
+    "Se vårt utvalg av kontrollerte og klargjorte bruktbiler til salgs.",
 };
 
 export default async function CarsPage({ searchParams }: Props) {
