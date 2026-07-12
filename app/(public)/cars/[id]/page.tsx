@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { ContactSellerForm } from "@/components/car/ContactSellerForm";
 import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
 import { CarGallery } from "@/components/car/CarGallery";
 import type { Metadata } from "next";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 
 type Props = {
   params: Promise<{
@@ -78,12 +78,13 @@ export default async function CarDetailPage({ params }: Props) {
 
       <main className="min-h-screen bg-gray-50">
         <section className="mx-auto max-w-6xl px-6 py-10">
-          <Link
-            href="/cars"
-            className="mb-6 inline-block text-sm font-medium text-gray-500 hover:text-gray-900"
-          >
-            ← Tilbake til biler
-          </Link>
+          <Breadcrumb
+            items={[
+              { label: "Hjem", href: "/" },
+              { label: "Biler", href: "/cars" },
+              { label: car.title },
+            ]}
+          />
 
           <div className="grid gap-10 lg:grid-cols-2">
             {galleryImages.length > 0 ? (
