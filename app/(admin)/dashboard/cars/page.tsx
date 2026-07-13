@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { DeleteCarButton } from "@/components/car/DeleteCarButton";
 import Image from "next/image";
+import { SuccessToast } from "@/components/ui/SuccessToast";
 
 export const dynamic = "force-dynamic";
 
@@ -68,11 +69,8 @@ export default async function AdminCarsPage({ searchParams }: Props) {
           </Link>
         </div>
 
-        {params.success && (
-          <div className="mt-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-            {params.success}
-          </div>
-        )}
+        {params.success && <SuccessToast message={params.success} />}
+
         <form className="mt-6 space-y-3">
           <input
             type="text"
