@@ -4,12 +4,14 @@ import { Footer } from "@/components/layout/Footer";
 import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 import Link from "next/link";
 import type { Metadata } from "next";
+import type { Prisma } from "@prisma/client";
 
 type Props = {
   searchParams: Promise<{
     q?: string;
     status?: string;
     sort?: string;
+    page?: string;
   }>;
 };
 
@@ -24,6 +26,26 @@ export default async function CarsPage({ searchParams }: Props) {
   const q = params.q ?? "";
   const status = params.status ?? "";
   const sort = params.sort ?? "newest";
+  const requestedPage = Number(params.page);
+  const currentPage =
+    Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+
+  const pageSize = 2;
+
+  const where: Prisma.CarWhereInput = {
+    NOT: {
+      status: "Solgt",
+    },
+    title: {
+      contains: q,
+      mode: "insensitive",
+    },
+    ...(status
+      ? {
+          status,
+        }
+      : {}),
+  };
   const orderBy =
     sort === "price-low"
       ? { price: "asc" as const }
@@ -35,26 +57,35 @@ export default async function CarsPage({ searchParams }: Props) {
             ? { mileage: "asc" as const }
             : { createdAt: "desc" as const };
 
-  const cars = await prisma.car.findMany({
-    include: {
-      images: true,
-    },
-    where: {
-      NOT: {
-        status: "Solgt",
+  const [cars, totalCars] = await Promise.all([
+    prisma.car.findMany({
+      include: {
+        images: true,
       },
-      title: {
-        contains: q,
-        mode: "insensitive",
-      },
-      ...(status
-        ? {
-            status,
-          }
-        : {}),
-    },
-    orderBy,
-  });
+      where,
+      orderBy,
+      skip: (currentPage - 1) * pageSize,
+      take: pageSize,
+    }),
+
+    prisma.car.count({
+      where,
+    }),
+  ]);
+
+  const totalPages = Math.ceil(totalCars / pageSize);
+
+  function createPageUrl(pageNumber: number) {
+    const search = new URLSearchParams();
+
+    if (q) search.set("q", q);
+    if (status) search.set("status", status);
+    if (sort) search.set("sort", sort);
+
+    search.set("page", String(pageNumber));
+
+    return `/cars?${search.toString()}`;
+  }
 
   return (
     <>
@@ -121,10 +152,10 @@ export default async function CarsPage({ searchParams }: Props) {
           </form>
           <p
             className={`mb-6 text-base font-semibold ${
-              cars.length > 0 ? "text-green-700" : "text-red-600"
+              totalCars > 0 ? "text-green-700" : "text-red-600"
             }`}
           >
-            Fant {cars.length} {cars.length === 1 ? "bil" : "biler"}
+            Fant {totalCars} {totalCars === 1 ? "bil" : "biler"}
           </p>
 
           {(q || status) && (
@@ -154,7 +185,62 @@ export default async function CarsPage({ searchParams }: Props) {
               </p>
             </div>
           ) : (
-            <LoadMoreCars cars={cars} />
+            <>
+              <LoadMoreCars cars={cars} />
+
+              {totalPages > 1 && (
+                <nav
+                  aria-label="Sidenavigasjon"
+                  className="mt-10 flex flex-wrap items-center justify-center gap-2"
+                >
+                  {currentPage > 1 ? (
+                    <Link
+                      href={createPageUrl(currentPage - 1)}
+                      className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                    >
+                      Forrige
+                    </Link>
+                  ) : (
+                    <span className="cursor-not-allowed rounded-xl border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-400">
+                      Forrige
+                    </span>
+                  )}
+
+                  {Array.from({ length: totalPages }).map((_, index) => {
+                    const pageNumber = index + 1;
+                    const isCurrentPage = pageNumber === currentPage;
+
+                    return (
+                      <Link
+                        key={pageNumber}
+                        href={createPageUrl(pageNumber)}
+                        aria-current={isCurrentPage ? "page" : undefined}
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl text-sm font-semibold ${
+                          isCurrentPage
+                            ? "bg-gray-900 text-white"
+                            : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {pageNumber}
+                      </Link>
+                    );
+                  })}
+
+                  {currentPage < totalPages ? (
+                    <Link
+                      href={createPageUrl(currentPage + 1)}
+                      className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                    >
+                      Neste
+                    </Link>
+                  ) : (
+                    <span className="cursor-not-allowed rounded-xl border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-400">
+                      Neste
+                    </span>
+                  )}
+                </nav>
+              )}
+            </>
           )}
         </section>
       </main>
