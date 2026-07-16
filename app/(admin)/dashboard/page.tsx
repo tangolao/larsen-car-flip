@@ -6,6 +6,18 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const messageCount = await prisma.contactMessage.count();
   const carCount = await prisma.car.count();
+  const inventoryValue = await prisma.car.aggregate({
+    where: {
+      NOT: {
+        status: "Solgt",
+      },
+    },
+    _sum: {
+      price: true,
+    },
+  });
+  const totalInventoryValue = inventoryValue._sum.price ?? 0;
+
   const availableCount = await prisma.car.count({
     where: { status: "Til salgs" },
   });
@@ -44,7 +56,7 @@ export default async function DashboardPage() {
           Oversikt over administrasjonssider.
         </p>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
             <p className="text-sm font-medium text-gray-500">Biler totalt</p>
             <h2 className="mt-2 text-3xl font-bold text-gray-900">
@@ -78,6 +90,18 @@ export default async function DashboardPage() {
             <h2 className="mt-2 text-3xl font-bold text-gray-900">
               {messageCount}
             </h2>
+          </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200">
+            <p className="text-sm font-medium text-gray-500">Lagerverdi</p>
+
+            <h2 className="mt-2 text-2xl font-bold text-gray-900">
+              {totalInventoryValue.toLocaleString("no-NO")} kr
+            </h2>
+
+            <p className="mt-1 text-xs text-gray-500">
+              Verdien av biler som ikke er solgt
+            </p>
           </div>
         </div>
 
