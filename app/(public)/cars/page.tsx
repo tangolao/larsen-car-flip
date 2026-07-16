@@ -1,10 +1,10 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { prisma } from "@/lib/prisma";
 import { Footer } from "@/components/layout/Footer";
-import { LoadMoreCars } from "@/components/car/LoadMoreCars";
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { Prisma } from "@prisma/client";
+import { CarCard } from "@/components/car/CarCard";
 
 type Props = {
   searchParams: Promise<{
@@ -109,6 +109,7 @@ export default async function CarsPage({ searchParams }: Props) {
           <form className="mb-8 flex flex-col gap-3 sm:flex-row">
             <input
               name="q"
+              defaultValue={q}
               type="text"
               placeholder="Søk etter bil..."
               className="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 outline-none focus:border-gray-900"
@@ -186,7 +187,11 @@ export default async function CarsPage({ searchParams }: Props) {
             </div>
           ) : (
             <>
-              <LoadMoreCars cars={cars} />
+              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {cars.map((car) => (
+                  <CarCard key={car.id} car={car} />
+                ))}
+              </div>
 
               {totalPages > 1 && (
                 <nav
