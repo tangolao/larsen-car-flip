@@ -139,17 +139,18 @@ export default async function DashboardPage() {
               <Link
                 key={car.id}
                 href={`/dashboard/cars/${car.id}/edit`}
-                className="flex items-center justify-between py-4 transition hover:bg-gray-50"
+                className="flex items-center justify-between rounded-lg px-3 py-4 transition hover:bg-gray-50"
               >
                 <div>
-                  <p className="font-medium text-gray-900">{car.title}</p>
+                  <p className="font-semibold text-gray-900">{car.title}</p>
+
                   <p className="mt-1 text-sm text-gray-500">
-                    {car.price.toLocaleString("no-NO")} kr
+                    {car.year} • {car.price.toLocaleString("no-NO")} kr
                   </p>
                 </div>
 
                 <span
-                  className={`rounded-full px-3 py-1 text-xs font-medium ${
+                  className={`rounded-full px-3 py-1.5 text-xs font-medium ${
                     car.status === "Til salgs"
                       ? "bg-green-100 text-green-700"
                       : car.status === "Reservert"
