@@ -28,6 +28,12 @@ export default async function DashboardPage() {
   const soldCount = await prisma.car.count({
     where: { status: "Solgt" },
   });
+  const latestCars = await prisma.car.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 5,
+  });
 
   return (
     <main className="min-h-screen bg-gray-50 p-10">
@@ -111,6 +117,58 @@ export default async function DashboardPage() {
           reservedCount={reservedCount}
           soldCount={soldCount}
         />
+        <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-500">Siste biler</p>
+              <h2 className="mt-1 text-xl font-bold text-gray-900">
+                Nylig lagt til
+              </h2>
+            </div>
+
+            <Link
+              href="/dashboard/cars"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+            >
+              Se alle biler
+            </Link>
+          </div>
+
+          <div className="mt-6 divide-y divide-gray-200">
+            {latestCars.map((car) => (
+              <Link
+                key={car.id}
+                href={`/dashboard/cars/${car.id}/edit`}
+                className="flex items-center justify-between py-4 transition hover:bg-gray-50"
+              >
+                <div>
+                  <p className="font-medium text-gray-900">{car.title}</p>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {car.price.toLocaleString("no-NO")} kr
+                  </p>
+                </div>
+
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-medium ${
+                    car.status === "Til salgs"
+                      ? "bg-green-100 text-green-700"
+                      : car.status === "Reservert"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {car.status}
+                </span>
+              </Link>
+            ))}
+
+            {latestCars.length === 0 && (
+              <p className="py-6 text-sm text-gray-500">
+                Ingen biler er lagt til ennå.
+              </p>
+            )}
+          </div>
+        </div>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <Link
             href="/dashboard/messages"
