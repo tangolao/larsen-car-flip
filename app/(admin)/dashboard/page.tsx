@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { CarStatusChart } from "@/components/dashboard/CarStatusChart";
 
 export const dynamic = "force-dynamic";
 
@@ -105,6 +106,11 @@ export default async function DashboardPage() {
           </div>
         </div>
 
+        <CarStatusChart
+          availableCount={availableCount}
+          reservedCount={reservedCount}
+          soldCount={soldCount}
+        />
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <Link
             href="/dashboard/messages"
